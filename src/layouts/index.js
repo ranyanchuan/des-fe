@@ -311,17 +311,17 @@ class BasicLayout extends React.Component {
             {/*右边内容*/}
             <Layout>
               <Header className={styles.header}>
-                {/*<div>*/}
-                  {/*<Icon*/}
-                    {/*className={styles.trigger}*/}
-                    {/*type={collapsed ? 'menu-unfold' : 'menu-fold'}*/}
-                    {/*onClick={() => {*/}
-                      {/*this.setState({*/}
-                        {/*collapsed: !collapsed,*/}
-                      {/*})*/}
-                    {/*}}*/}
-                  {/*/>*/}
-                {/*</div>*/}
+                <div>
+                  <Icon
+                    className={styles.trigger}
+                    type={collapsed ? 'menu-unfold' : 'menu-fold'}
+                    onClick={() => {
+                      this.setState({
+                        collapsed: !collapsed,
+                      })
+                    }}
+                  />
+                </div>
                 <div className={styles.right}>
                   <Menu
                     // theme="dark"
@@ -348,7 +348,7 @@ class BasicLayout extends React.Component {
               </Header>
 
               {/*内容*/}
-              <Content style={{margin: '0 16px'}}>
+              <Content>
 
                 {/*<Affix offsetTop={this.state.top}>*/}
                   {/*<Tabs*/}

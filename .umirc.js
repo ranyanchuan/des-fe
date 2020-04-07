@@ -13,7 +13,7 @@ export default {
       routes: [
         {path: '/', redirect: '/home'},
         {path: '/sign-in', component: './sign-in/components/'},
-        {path: '/single-table', component: './single-table/components/'},
+        {path: '/find', component: './find/components/'},
         {path: '/404', component: './404'},
         {path: '/403', component: './403'},
         {path: '/500', component: './500'},

@@ -1,16 +1,19 @@
 import React from 'react';
-import { connect } from 'dva';
-import { Button, Modal, Table, Divider, Spin } from 'antd';
-import { checkError, checkEdit, getPageParam } from 'utils';
+import {connect} from 'dva';
+import {Input, Modal, Table, Divider, Spin} from 'antd';
+import {checkError, checkEdit, getPageParam} from 'utils';
 
-import Search from './Search';
+
 import ActionModal from './Modal';
 
 import moment from 'moment';
 
 const ruleDate = 'YYYY-MM-DD HH:mm:ss';
 const confirm = Modal.confirm;
+import styles from './index.less';
 
+
+const {Search} = Input;
 
 @connect((state) => ({
   productAppModel: state.productAppModel,
@@ -31,13 +34,13 @@ class ProductApp extends React.Component {
 
   // 获取数据
   getAppData = (payload) => {
-    this.setState({ loading: true });
+    this.setState({loading: true});
     const _this = this;
     this.props.dispatch({
       type: 'productAppModel/getApp',
       payload,
       callback: (data) => {
-        let stateTemp = { loading: false };
+        let stateTemp = {loading: false};
         _this.setState(stateTemp);
       },
     });
@@ -60,7 +63,7 @@ class ProductApp extends React.Component {
   //添加表格数据
   addAppData = (payload) => {
     this.onClickClose();
-    const { status, modalDataObj } = this.state;
+    const {status, modalDataObj} = this.state;
 
     this.props.dispatch({
       type: 'productAppModel/addApp',
@@ -76,13 +79,13 @@ class ProductApp extends React.Component {
 
   // 搜索面板值
   onSearchPannel = (param) => {
-    this.getAppData({ ...param });
+    this.getAppData({...param});
   };
 
 
   // 展示弹框
   onShowModal = (status, record) => {
-    this.setState({ visible: true, status, modalDataObj: record });
+    this.setState({visible: true, status, modalDataObj: record});
   };
 
 
@@ -90,7 +93,7 @@ class ProductApp extends React.Component {
   onChangePage = (data) => {
     const searchObj = this.child.getSearchValue();
     // 获取分页数据
-    this.getAppData({ ...getPageParam(data), ...searchObj });
+    this.getAppData({...getPageParam(data), ...searchObj});
   };
 
   // 删除弹框确认
@@ -122,57 +125,39 @@ class ProductApp extends React.Component {
       },
     },
     {
-      title: '版本号',
-      dataIndex: 'version',
-      key: 'version',
+      title: '存证人',
+      dataIndex: 'cunzhengren',
+      key: 'cunzhengren',
     },
     {
-      title: 'URL',
-      dataIndex: 'url',
-      key: 'url',
-      render: (text, record, index) => {
-        return text ? <a href={text} target="_blank">下载地址</a> : null;
-      },
+      title: '存证数量',
+      dataIndex: 'cunzhengshuliang',
+      key: 'cunzhengshuliang'
     },
     {
-      title: 'APP类型 ',
-      dataIndex: 'type',
-      key: 'type',
-      render: (text) => {
-        const statusObj = {
-          '0': 'IOS',
-          '1': 'ANDROID',
-        };
-        return text ? statusObj[text.toString()] : text;
-      },
-
-    },
-    {
-      title: '强制更新',
-      dataIndex: 'isupdate',
-      key: 'isupdate',
-      render: (text) => {
-        const statusObj = {
-          '0': '否',
-          '1': '是',
-        };
-        return text ? statusObj[text.toString()] : text;
-      },
+      title: '存证类型',
+      dataIndex: 'cunzhengleixing',
+      key: 'cunzhengleixing'
     },
 
     {
-      title: '添加时间',
-      dataIndex: 'createtime',
-      key: 'createtime',
+      title: '存证时间',
+      dataIndex: 'cunzhengshijian',
+      key: 'cunzhengshijian',
       render: (text) => {
         return text ? moment(text).format(ruleDate) : '';
       },
     },
 
     {
-      title: '操作人',
-      dataIndex: 'creatorname',
-      key: 'creatorname',
+      title: '区块高度',
+      dataIndex: 'qukuaigaodu',
+      key: 'qukuaigaodu',
+    },
+    {
+      title: '存证哈希值',
+      dataIndex: 'cunzhenghaxi',
+      key: 'cunzhenghaxi',
     },
 
     {
@@ -192,56 +177,64 @@ class ProductApp extends React.Component {
 
   // 关闭弹框
   onClickClose = () => {
-    this.setState({ visible: false, status: 'add' });
+    this.setState({visible: false, status: 'add'});
   };
 
   render() {
-    const { status, loading, selectedRowObj, visible, modalDataObj } = this.state;
+    const {status, loading, selectedRowObj, visible, modalDataObj} = this.state;
 
-    const { appData } = this.props.productAppModel;
-    const {pageIndex, total, pageSize, rows}=appData;
+    const {appData} = this.props.productAppModel;
+    const {pageIndex, total, pageSize, rows} = appData;
+
+    console.log("appData.rows",appData.rows,this.props.productAppModel);
+
+
 
 
     return (
       <div>
-        <Spin spinning={false}>
-        <Search
-          onSearch={this.onSearchPannel}
-          // 设置ref属性
-          onRef={(ref) => {
-            this.child = ref;
-          }}
-        />
-        <div className="table-operations">
-          <Button onClick={this.onShowModal.bind(this, 'add')}>添加</Button>
+        {/*<Spin spinning={false}>*/}
+
+
+        <div className={styles.find}>
+          <div className={styles.content}>
+            <div className={styles.total}>
+              存证数量 『 664344 』
+            </div>
+            <Search
+              placeholder="请输入存证人、存证号进行搜索"
+              // enterButton="查询"
+              size="large"
+              style={{width: '500px'}}
+              onSearch={value => console.log(value)}
+            />
+          </div>
         </div>
 
-        {/*弹框*/}
-        <ActionModal
-          visible={visible}
-          onSave={this.addAppData}
-          status={status}
-          onClose={this.onClickClose}
-          basicData={status !== 'add' ? modalDataObj : {}}
-        />
 
-        <Table
-          rowKey={record => record.id.toString()}
-          // rowSelection={rowSelection}
-          columns={this.columns}
-          size="small"
-          dataSource={appData.rows}
-          pagination={{
-            current: pageIndex,
-            total,
-            pageSize,
-          }}
-          // loading={loading}
-          onChange={this.onChangePage}
-        />
-        </Spin>
+        <div style={{
+          // background: '#f7f9fd'
+        }}>
+          <Table
+            className={styles.table}
+            rowKey={record => record.id.toString()}
+            // rowSelection={rowSelection}
+            columns={this.columns}
+            size="small"
+            dataSource={appData.rows}
+            pagination={{
+              current: pageIndex,
+              total,
+              pageSize,
+            }}
+            // loading={loading}
+            onChange={this.onChangePage}
+          />
+        </div>
+        {/*</Spin>*/}
       </div>
     );
   }
 }
+
 export default ProductApp;
