@@ -1,0 +1,67 @@
+
+.basicLayout {
+
+  .sider {
+    box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
+  }
+
+  .logo {
+    position: relative;
+    padding: 0 24px;
+    overflow: hidden;
+    background: #001529;
+    cursor: pointer;
+    transition: all .3s;
+    img {
+      display: inline-block;
+      height: 32px;
+      vertical-align: middle;
+      margin-top: 15px;
+      margin-bottom: 12px;
+    }
+    h1 {
+      display: inline-block;
+      margin: 0 0 0 12px;
+      color: #fff;
+      font-weight: 600;
+      font-size: 20px;
+      vertical-align: middle;
+      animation: fade-in;
+      //animation-duration: .3s;
+    }
+  }
+
+  .header {
+    background: #fff;
+    padding: 0;
+    //box-shadow: 0 2px 8px #f0f1f2;
+    box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+
+    .trigger {
+      height: 64px;
+      padding: 0 24px;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all .3s, padding 0s;
+    }
+
+    .right {
+      margin-right: 20px;
+    }
+  }
+
+  .tabPage {
+    background-color: #fff;
+  }
+  .tabContent {
+    background-color: #fff;
+    padding-top: 10px;
+    min-height: 600px;
+    //overflow: scroll;
+  }
+
+}
+
