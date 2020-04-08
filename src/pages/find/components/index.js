@@ -166,9 +166,9 @@ class ProductApp extends React.Component {
       key: 'action',
       render: (text, record) => (
         <span>
-           <a onClick={this.onShowModal.bind(this, 'edit', record)}>编辑</a>
-           <Divider type="vertical"/>
-           <a onClick={this.showDelCon.bind(this, record)}>删除</a>
+           <a onClick={this.onShowModal.bind(this, 'edit', record)}>查看</a>
+           {/*<Divider type="vertical"/>*/}
+           {/*<a onClick={this.showDelCon.bind(this, record)}>删除</a>*/}
        </span>
       ),
     },
