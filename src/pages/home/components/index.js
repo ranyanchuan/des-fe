@@ -1,18 +1,19 @@
 import React from 'react';
 import {connect} from 'dva';
-import {Input, Modal, Table, Divider, Spin} from 'antd';
+import {Button, Modal, Table, Divider, Spin} from 'antd';
 import {checkError, checkEdit, getPageParam} from 'utils';
+import ActionModal from './Modal';
 import moment from 'moment';
+
+import Search from './Search';
 
 const ruleDate = 'YYYY-MM-DD HH:mm:ss';
 const confirm = Modal.confirm;
 import styles from './index.less';
 
 
-const {Search} = Input;
-
 @connect((state) => ({
-  productAppModel: state.productAppModel,
+  homeModel: state.homeModel,
 }))
 
 class ProductApp extends React.Component {
@@ -29,11 +30,11 @@ class ProductApp extends React.Component {
   }
 
   // 获取数据
-  getAppData = (payload) => {
+  getData = (payload) => {
     this.setState({loading: true});
     const _this = this;
     this.props.dispatch({
-      type: 'productAppModel/getApp',
+      type: 'homeModel/getApp',
       payload,
       callback: (data) => {
         let stateTemp = {loading: false};
@@ -46,7 +47,7 @@ class ProductApp extends React.Component {
   // 删除表格数据
   delAppData = (payload) => {
     this.props.dispatch({
-      type: 'productAppModel/delApp',
+      type: 'homeModel/delApp',
       payload,
       callback: (value) => {
         if (checkError(value)) {
@@ -57,12 +58,12 @@ class ProductApp extends React.Component {
   };
 
   //添加表格数据
-  addAppData = (payload) => {
+  addData = (payload) => {
     this.onClickClose();
     const {status, modalDataObj} = this.state;
 
     this.props.dispatch({
-      type: 'productAppModel/addApp',
+      type: 'homeModel/addApp',
       payload: checkEdit(status, modalDataObj, payload),
       callback: (value) => {
         if (checkError(value)) {
@@ -176,53 +177,71 @@ class ProductApp extends React.Component {
     this.setState({visible: false, status: 'add'});
   };
 
+  // 搜索面板值
+  onSearchPannel = (param) => {
+    this.getData({...param});
+  };
+
+  // 展示弹框
+  onShowModal = (status, record) => {
+    this.setState({visible: true, status, modalDataObj: record});
+  };
+
+  // 修改分页
+  onChangePage = (data) => {
+    const searchObj = this.child.getSearchValue();
+    // 获取分页数据
+    this.getBd_diquData({...getPageParam(data), ...searchObj});
+  };
+
+
+
   render() {
     const {status, loading, selectedRowObj, visible, modalDataObj} = this.state;
 
-    const {appData} = this.props.productAppModel;
+    const {appData} = this.props.homeModel;
     const {pageIndex, total, pageSize, rows} = appData;
-
-    console.log("appData.rows", appData.rows, this.props.productAppModel);
 
     return (
       <div>
-        {/*<Spin spinning={false}>*/}
-        <div className={styles.find}>
-          <div className={styles.content}>
-            <div className={styles.total}>
-              存证数量 『 664344 』
-            </div>
-            <Search
-              placeholder="请输入存证人、存证号进行搜索"
-              // enterButton="查询"
-              size="large"
-              style={{width: '500px'}}
-              onSearch={value => console.log(value)}
+        <Spin spinning={false}>
+
+          <Search onRef={(value) => this.childSearch = value}/>
+
+
+          <div className="table-operations">
+            <Button onClick={this.onShowModal.bind(this, 'add')}>添加</Button>
+          </div>
+
+          {/*添加表单*/}
+          <ActionModal
+            visible={visible}
+            onSave={this.addData}
+            status={status}
+            onClose={this.onClickClose}
+            basicData={status !== 'add' ? modalDataObj : {}}
+          />
+
+          <div style={{
+            // background: '#f7f9fd'
+          }}>
+            <Table
+              className={styles.table}
+              rowKey={record => record.id.toString()}
+              // rowSelection={rowSelection}
+              columns={this.columns}
+              size="small"
+              dataSource={appData.rows}
+              pagination={{
+                current: pageIndex,
+                total,
+                pageSize,
+              }}
+              // loading={loading}
+              onChange={this.onChangePage}
             />
           </div>
-        </div>
-
-
-        <div style={{
-          // background: '#f7f9fd'
-        }}>
-          <Table
-            className={styles.table}
-            rowKey={record => record.id.toString()}
-            // rowSelection={rowSelection}
-            columns={this.columns}
-            size="small"
-            dataSource={appData.rows}
-            pagination={{
-              current: pageIndex,
-              total,
-              pageSize,
-            }}
-            // loading={loading}
-            onChange={this.onChangePage}
-          />
-        </div>
-        {/*</Spin>*/}
+        </Spin>
       </div>
     );
   }
