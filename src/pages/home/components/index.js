@@ -26,7 +26,7 @@ class ProductApp extends React.Component {
   };
 
   componentDidMount() {
-    this.getAppData();
+    this.getData();
   }
 
   // 获取数据
@@ -34,7 +34,7 @@ class ProductApp extends React.Component {
     this.setState({loading: true});
     const _this = this;
     this.props.dispatch({
-      type: 'homeModel/getApp',
+      type: 'homeModel/getData',
       payload,
       callback: (data) => {
         let stateTemp = {loading: false};
@@ -51,7 +51,7 @@ class ProductApp extends React.Component {
       payload,
       callback: (value) => {
         if (checkError(value)) {
-          this.getAppData();
+          this.getData();
         }
       },
     });
@@ -67,7 +67,7 @@ class ProductApp extends React.Component {
       payload: checkEdit(status, modalDataObj, payload),
       callback: (value) => {
         if (checkError(value)) {
-          this.getAppData();
+          this.getData();
         }
       },
     });
@@ -76,7 +76,7 @@ class ProductApp extends React.Component {
 
   // 搜索面板值
   onSearchPannel = (param) => {
-    this.getAppData({...param});
+    this.getData({...param});
   };
 
 
@@ -90,7 +90,7 @@ class ProductApp extends React.Component {
   onChangePage = (data) => {
     const searchObj = this.child.getSearchValue();
     // 获取分页数据
-    this.getAppData({...getPageParam(data), ...searchObj});
+    this.getData({...getPageParam(data), ...searchObj});
   };
 
   // 删除弹框确认
@@ -195,22 +195,21 @@ class ProductApp extends React.Component {
   };
 
 
-
   render() {
-    const {status, loading, selectedRowObj, visible, modalDataObj} = this.state;
+    const {status, visible, modalDataObj} = this.state;
 
     const {appData} = this.props.homeModel;
     const {pageIndex, total, pageSize, rows} = appData;
-
     return (
-      <div>
+      <div className={styles.home}>
         <Spin spinning={false}>
 
-          <Search onRef={(value) => this.childSearch = value}/>
-
-
+          <Search
+            onSearch={this.onSearchPannel}
+            onRef={(value) => this.childSearch = value}
+          />
           <div className="table-operations">
-            <Button onClick={this.onShowModal.bind(this, 'add')}>添加</Button>
+            <Button type={"primary"} onClick={this.onShowModal.bind(this, 'add')}>添加</Button>
           </div>
 
           {/*添加表单*/}
@@ -231,7 +230,7 @@ class ProductApp extends React.Component {
               // rowSelection={rowSelection}
               columns={this.columns}
               size="small"
-              dataSource={appData.rows}
+              dataSource={rows}
               pagination={{
                 current: pageIndex,
                 total,

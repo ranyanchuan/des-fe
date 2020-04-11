@@ -268,7 +268,6 @@ export default {
 
       };
 
-
       if (data) {
         yield put({type: 'updateState', res: {appData: data}});
       }

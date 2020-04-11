@@ -21,6 +21,7 @@ class BasicLayout extends React.Component {
   state = {
     collapsed: false,
     menuInitArray: [],
+    defaultNavKey: '/find',
     updPassModalVis: false, // 修改密码弹框
     loginModalVis: false, // 登录弹框
     registerModalVis: false, // 注册弹框
@@ -28,7 +29,9 @@ class BasicLayout extends React.Component {
 
 
   componentDidMount() {
-
+    const { pathname } = this.props.location;
+    this.setState({defaultNavKey: pathname});
+    router.push(pathname);
   }
 
   // 退出
@@ -58,9 +61,17 @@ class BasicLayout extends React.Component {
   };
 
 
+  // 导航菜单
+  onClickNavMenu = (param) => {
+    const {key} = param;
+    router.push(key);
+    this.setState({defaultNavKey: key});
+  };
+
+
   render() {
 
-    const {updPassModalVis, loginModalVis, registerModalVis} = this.state;
+    const {updPassModalVis, loginModalVis, registerModalVis, defaultNavKey} = this.state;
     const userCode = localStorage.getItem("userCode");
     // 用户信息
     const menu = (
@@ -86,10 +97,10 @@ class BasicLayout extends React.Component {
                 <Menu
                   // theme="dark"
                   mode="horizontal"
-                  defaultSelectedKeys={['find']}
-                  selectedKeys={['find']}
+                  defaultSelectedKeys={[defaultNavKey]}
+                  selectedKeys={[defaultNavKey]}
                   style={{lineHeight: '64px'}}
-                  // onClick={this.onClickNavMenu}
+                  onClick={this.onClickNavMenu}
                 >
 
                   <Menu.Item key='logo' style={{padding: 0, marginLeft: 20}}>
@@ -98,10 +109,10 @@ class BasicLayout extends React.Component {
                          alt=""/>
                   </Menu.Item>
 
-                  <Menu.Item key='find' style={{marginLeft: 10}}>
+                  <Menu.Item key='/find' style={{marginLeft: 10}}>
                     首页
                   </Menu.Item>
-                  <Menu.Item key='home' style={{marginLeft: 10}}>
+                  <Menu.Item key='/home' style={{marginLeft: 10}}>
                     用户信息
                   </Menu.Item>
                 </Menu>

@@ -60,31 +60,31 @@ class Search extends React.Component {
         >
 
           <Row gutter={24}>
-            <Col span={8}>
+            <Col span={6}>
               <ConInput
                 form={form}
                 formItemLayout={formItemLayout}
-                id="bianhao"
-                label="编号"
-                placeholder="编号"
+                id="hash"
+                label="存证哈希值"
+                placeholder="存证哈希值"
+              />
+            </Col>
+            <Col span={6}>
+              <ConInput
+                form={form}
+                formItemLayout={formItemLayout}
+                id="category"
+                label="区块类型"
+                placeholder="区块类型"
               />
             </Col>
             <Col span={8}>
-              <ConInput
+              <ConRangePicker
                 form={form}
                 formItemLayout={formItemLayout}
-                id="mingcheng"
-                label="名称"
-                placeholder="名称"
-              />
-            </Col>
-            <Col span={8}>
-              <ConInput
-                form={form}
-                formItemLayout={formItemLayout}
-                id="pid"
-                label="上级地区"
-                placeholder="上级地区"
+                id="createTime"
+                label="存证时间"
+                placeholder="存证时间"
               />
             </Col>
           </Row>
