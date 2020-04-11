@@ -86,16 +86,22 @@ class BasicLayout extends React.Component {
                 <Menu
                   // theme="dark"
                   mode="horizontal"
-                  defaultSelectedKeys={['xx']}
-                  selectedKeys={['xx']}
+                  defaultSelectedKeys={['find']}
+                  selectedKeys={['find']}
                   style={{lineHeight: '64px'}}
                   // onClick={this.onClickNavMenu}
                 >
 
-                  <Menu.Item key='find' style={{padding: 0}}>
+                  <Menu.Item key='logo' style={{padding: 0, marginLeft: 20}}>
+                    <img style={{height: 30, marginTop: -10}}
+                         src="http://img0.bdstatic.com/static/searchresult/img/logo-2X_32a8193.png"
+                         alt=""/>
+                  </Menu.Item>
+
+                  <Menu.Item key='find' style={{marginLeft: 10}}>
                     首页
                   </Menu.Item>
-                  <Menu.Item key='home' style={{padding: 0}}>
+                  <Menu.Item key='home' style={{marginLeft: 10}}>
                     用户信息
                   </Menu.Item>
                 </Menu>
@@ -146,24 +152,23 @@ class BasicLayout extends React.Component {
           </Layout>
 
 
-          {/*修改密码*/}
-          <UpdPassModel
-            visible={updPassModalVis}
-            onClose={this.onHideModal}
-          />
+          {/*/!*修改密码*!/*/}
+          {/*<UpdPassModel*/}
+          {/*visible={updPassModalVis}*/}
+          {/*onClose={this.onHideModal}*/}
+          {/*/>*/}
 
-          {/*登录弹框*/}
-          <LoginModal
-            visible={updPassModalVis}
-            onClose={this.onHideModal}
+          {/*/!*登录弹框*!/*/}
+          {/*<LoginModal*/}
+          {/*visible={loginModalVis}*/}
+          {/*onClose={this.onHideModal}*/}
+          {/*/>*/}
 
-          />
-
-          {/*注册弹框*/}
-          <RegisterModal
-            visible={updPassModalVis}
-            onClose={this.onHideModal}
-          />
+          {/*/!*注册弹框*!/*/}
+          {/*<RegisterModal*/}
+          {/*visible={registerModalVis}*/}
+          {/*onClose={this.onHideModal}*/}
+          {/*/>*/}
 
 
         </div>

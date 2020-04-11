@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'dva';
-import {Input, Modal, Table, Divider, Spin} from 'antd';
+import {Input, Modal, Table} from 'antd';
 import {checkError, checkEdit, getPageParam} from 'utils';
 import moment from 'moment';
 

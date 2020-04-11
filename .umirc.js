@@ -11,9 +11,9 @@ export default {
       path: '/',
       component: '../layouts/index',
       routes: [
-        {path: '/', redirect: '/home'},
-        {path: '/sign-in', component: './sign-in/components/'},
+        // {path: '/', redirect: '/home'},
         {path: '/find', component: './find/components/'},
+        {path: '/home', component: './home/components/'},
         {path: '/404', component: './404'},
         {path: '/403', component: './403'},
         {path: '/500', component: './500'},
@@ -31,7 +31,7 @@ export default {
         immer: true,
       },
       dynamicImport: false,
-      title: 'yaoyan-antd',
+      title: '区块链',
       dll: false,
 
       // routes: {

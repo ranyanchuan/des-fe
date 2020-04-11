@@ -3,9 +3,7 @@ import React from 'react';
 import {Form, Icon, Input, Button, Spin, Checkbox, message, Radio} from 'antd';
 import {connect} from 'dva';
 import {checkError} from 'utils';
-import AgreeModal from './agreeModal';
-
-import styles from './register.less';
+import styles from './index.less';
 
 @Form.create()
 
