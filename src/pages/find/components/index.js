@@ -1,11 +1,10 @@
 import React from 'react';
 import {connect} from 'dva';
-import {Input, Modal, Table} from 'antd';
+import {Input, Table} from 'antd';
 import {checkError, checkEdit, getPageParam} from 'utils';
 import moment from 'moment';
 
 const ruleDate = 'YYYY-MM-DD HH:mm:ss';
-const confirm = Modal.confirm;
 import styles from './index.less';
 
 
@@ -43,46 +42,12 @@ class ProductApp extends React.Component {
   };
 
 
-  // 删除表格数据
-  delBlockData = (payload) => {
-    this.props.dispatch({
-      type: 'findModel/addData',
-      payload,
-      callback: (value) => {
-        if (checkError(value)) {
-          this.getBlockData();
-        }
-      },
-    });
-  };
-
-  //添加表格数据
-  addblockData = (payload) => {
-    this.onClickClose();
-    const {status, modalDataObj} = this.state;
-
-    this.props.dispatch({
-      type: 'findModel/addApp',
-      payload: checkEdit(status, modalDataObj, payload),
-      callback: (value) => {
-        if (checkError(value)) {
-          this.getBlockData();
-        }
-      },
-    });
-  };
-
-
   // 搜索面板值
   onSearchPannel = (param) => {
     this.getBlockData({...param});
   };
 
 
-  // 展示弹框
-  onShowModal = (status, record) => {
-    this.setState({visible: true, status, modalDataObj: record});
-  };
 
 
   // 修改分页
@@ -92,24 +57,7 @@ class ProductApp extends React.Component {
     this.getBlockData({...getPageParam(data), ...searchObj});
   };
 
-  // 删除弹框确认
-  showDelCon = (payload) => {
-    const _this = this;
-    confirm({
-      title: '您确定要删除吗',
-      content: '',
-      okText: '是',
-      okType: 'danger',
-      cancelText: '否',
-      onOk() {
-        // 删除数据
-        _this.delblockData(payload);
-      },
-      onCancel() {
-        console.log('取消删除');
-      },
-    });
-  };
+
 
   columns = [
     {
@@ -168,7 +116,7 @@ class ProductApp extends React.Component {
       dataIndex: 'fileUrl',
       key: 'fileUrl',
       render: (text) => {
-        return <a href="http://www.baidu.com">文件下载</a>
+        return <a href="http://www.baidu.com">存证下载</a>
       },
     },
 
@@ -187,19 +135,14 @@ class ProductApp extends React.Component {
 
   ];
 
-  // 关闭弹框
-  onClickClose = () => {
-    this.setState({visible: false, status: 'add'});
-  };
+
 
   render() {
-    const {status, loading, selectedRowObj, visible, modalDataObj} = this.state;
 
     const {blockData} = this.props.findModel;
-    const {pageIndex, total, pageSize, rows} = blockData;
+    const {pageIndex, total, pageSize} = blockData;
 
-    console.log("blockData.rows", blockData.rows);
-    console.log(blockData.rows);
+
 
     return (
       <div>
@@ -227,7 +170,6 @@ class ProductApp extends React.Component {
           <Table
             className={styles.table}
             rowKey={record => record.id.toString()}
-            // rowSelection={rowSelection}
             columns={this.columns}
             size="small"
             dataSource={blockData.rows}

@@ -29,7 +29,7 @@ export default {
 
     //  分页查询
     * getData({payload, callback}, {call, put, select}) {
-      // const { data } = yield call(services.getApp, payload);
+      // const { data } = yield call(services.getBlock, payload);
 
       const data = {
         rows: [
@@ -275,13 +275,6 @@ export default {
       }
     },
 
-    // 添加区块
-    * addData({payload, callback}, {call, put, select}) {
-      const data = yield call(services.addBlock, payload);
-      if (callback) {
-        callback(data);
-      }
-    },
   },
 
 
