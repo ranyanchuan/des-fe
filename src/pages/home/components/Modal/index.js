@@ -2,15 +2,14 @@ import React from 'react';
 import {Form, Modal, Row, Col, Spin} from 'antd';
 
 import ConInput from 'components/ConInput';
-import ConSelect from 'components/ConSelect';
-import ConWebsite from 'components/ConWebsite';
+import ConUploadOneForm from 'components/ConUploadOneForm';
 
 import {footer} from 'utils';
 
 const titleObj = {
-  add: '添加APP版本管理信息',
-  edit: '编辑APP版本管理信息',
-  desc: '查看APP版本管理信息',
+  add: '添加存证信息',
+  edit: '编辑存证信息',
+  desc: '查看存证信息',
 };
 
 @Form.create()
@@ -44,9 +43,6 @@ class ActionModal extends React.Component {
     const {visible, form, status, basicData = {}} = this.props;
     const disabled = (status === 'desc') ? true : false;
 
-
-
-
     return (
       <Modal
         title={titleObj[status]}
@@ -58,60 +54,42 @@ class ActionModal extends React.Component {
         okText="确认"
         cancelText="取消"
         {...footer(disabled)}
-        width="900px"
+        width="400px"
       >
         <Spin spinning={loading}>
           <Form onSubmit={this.handleSubmit}>
             <Row>
 
-              <Col span={12}>
+              <Col span={24}>
                 <ConInput
                   form={form}
-                  id="version"
-                  label="版本号"
-                  placeholder="请输入版本号"
-                  defValue={basicData.version}
+                  id="category"
+                  label="存证类型"
+                  placeholder="请输入存证类型"
+                  message='请输入存证类型'
                   required={true}
                   disabled={disabled}
-                  message={'请输入版本号'}
+                  defValue={basicData.category}
                 />
               </Col>
 
-              <Col span={12}>
-                <ConWebsite
+              <Col span={24}>
+                <ConUploadOneForm
+                  formItemLayout = {{
+                    labelCol: {sm: {span: 6}},
+                    wrapperCol: {sm: {span: 18}},
+                  }}
                   form={form}
-                  id="url"
-                  label="URL"
-                  placeholder="请输入URL"
-                  defValue={basicData.url}
+                  id="fileUrl"
+                  defValue={basicData.fileUrl}
+                  disabled={disabled}
+                  label="文件"
+                  title="上传文件"
+                  message='请上传文件'
                   required={true}
-                  disabled={disabled}
-                  message={'请输入URL'}
                 />
               </Col>
-              <Col span={12}>
-                <ConSelect
-                  form={form}
-                  id="type"
-                  label="类型"
-                  placeholder="请选择类型"
-                  data={['IOS', 'ANDROID']}
-                  required={true}
-                  disabled={disabled}
-                  defValue={basicData.type}
-                />
-              </Col>
-              <Col span={12}>
-                <ConSelect
-                  form={form}
-                  id="isupdate"
-                  label="强制更新"
-                  placeholder="请选择是否强制更新"
-                  data={['否', '是']}
-                  disabled={disabled}
-                  defValue={basicData.isupdate}
-                />
-              </Col>
+
             </Row>
           </Form>
         </Spin>

@@ -12,7 +12,7 @@ import styles from './index.less';
 const {Search} = Input;
 
 @connect((state) => ({
-  productAppModel: state.productAppModel,
+  findModel: state.findModel,
 }))
 
 class ProductApp extends React.Component {
@@ -25,15 +25,15 @@ class ProductApp extends React.Component {
   };
 
   componentDidMount() {
-    this.getAppData();
+    this.getBlockData();
   }
 
   // 获取数据
-  getAppData = (payload) => {
+  getBlockData = (payload) => {
     this.setState({loading: true});
     const _this = this;
     this.props.dispatch({
-      type: 'productAppModel/getApp',
+      type: 'findModel/getData',
       payload,
       callback: (data) => {
         let stateTemp = {loading: false};
@@ -44,29 +44,29 @@ class ProductApp extends React.Component {
 
 
   // 删除表格数据
-  delAppData = (payload) => {
+  delBlockData = (payload) => {
     this.props.dispatch({
-      type: 'productAppModel/delApp',
+      type: 'findModel/addData',
       payload,
       callback: (value) => {
         if (checkError(value)) {
-          this.getAppData();
+          this.getBlockData();
         }
       },
     });
   };
 
   //添加表格数据
-  addAppData = (payload) => {
+  addblockData = (payload) => {
     this.onClickClose();
     const {status, modalDataObj} = this.state;
 
     this.props.dispatch({
-      type: 'productAppModel/addApp',
+      type: 'findModel/addApp',
       payload: checkEdit(status, modalDataObj, payload),
       callback: (value) => {
         if (checkError(value)) {
-          this.getAppData();
+          this.getBlockData();
         }
       },
     });
@@ -75,7 +75,7 @@ class ProductApp extends React.Component {
 
   // 搜索面板值
   onSearchPannel = (param) => {
-    this.getAppData({...param});
+    this.getBlockData({...param});
   };
 
 
@@ -89,7 +89,7 @@ class ProductApp extends React.Component {
   onChangePage = (data) => {
     const searchObj = this.child.getSearchValue();
     // 获取分页数据
-    this.getAppData({...getPageParam(data), ...searchObj});
+    this.getBlockData({...getPageParam(data), ...searchObj});
   };
 
   // 删除弹框确认
@@ -103,7 +103,7 @@ class ProductApp extends React.Component {
       cancelText: '否',
       onOk() {
         // 删除数据
-        _this.delAppData(payload);
+        _this.delblockData(payload);
       },
       onCancel() {
         console.log('取消删除');
@@ -120,26 +120,33 @@ class ProductApp extends React.Component {
         return index + 1;
       },
     },
+    // {
+    //   title: '存证人',
+    //   dataIndex: 'id',
+    //   key: 'id',
+    // },
     {
       title: '存证人',
-      dataIndex: 'cunzhengren',
-      key: 'cunzhengren',
+      dataIndex: 'userName',
+      key: 'userName',
     },
-    {
-      title: '存证数量',
-      dataIndex: 'cunzhengshuliang',
-      key: 'cunzhengshuliang'
-    },
+
+    // {
+    //   title: '存证数量',
+    //   dataIndex: 'cunzhengshuliang',
+    //   key: 'cunzhengshuliang'
+    // },
+
     {
       title: '存证类型',
-      dataIndex: 'cunzhengleixing',
-      key: 'cunzhengleixing'
+      dataIndex: 'category',
+      key: 'category'
     },
 
     {
       title: '存证时间',
-      dataIndex: 'cunzhengshijian',
-      key: 'cunzhengshijian',
+      dataIndex: 'createTime',
+      key: 'createTime',
       render: (text) => {
         return text ? moment(text).format(ruleDate) : '';
       },
@@ -147,27 +154,36 @@ class ProductApp extends React.Component {
 
     {
       title: '区块高度',
-      dataIndex: 'qukuaigaodu',
-      key: 'qukuaigaodu',
+      dataIndex: 'height',
+      key: 'height',
     },
     {
       title: '存证哈希值',
-      dataIndex: 'cunzhenghaxi',
-      key: 'cunzhenghaxi',
+      dataIndex: 'hash',
+      key: 'hash',
     },
 
     {
-      title: '操作',
-      dataIndex: 'action',
-      key: 'action',
-      render: (text, record) => (
-        <span>
-           <a onClick={this.onShowModal.bind(this, 'edit', record)}>查看</a>
-          {/*<Divider type="vertical"/>*/}
-          {/*<a onClick={this.showDelCon.bind(this, record)}>删除</a>*/}
-       </span>
-      ),
+      title: '文件',
+      dataIndex: 'fileUrl',
+      key: 'fileUrl',
+      render: (text) => {
+        return <a href="http://www.baidu.com">文件下载</a>
+      },
     },
+
+    // {
+    //   title: '操作',
+    //   dataIndex: 'action',
+    //   key: 'action',
+    //   render: (text, record) => (
+    //     <span>
+    //        <a onClick={this.onShowModal.bind(this, 'edit', record)}>查看</a>
+    //       {/*<Divider type="vertical"/>*/}
+    //       {/*<a onClick={this.showDelCon.bind(this, record)}>删除</a>*/}
+    //    </span>
+    //   ),
+    // },
 
   ];
 
@@ -179,10 +195,11 @@ class ProductApp extends React.Component {
   render() {
     const {status, loading, selectedRowObj, visible, modalDataObj} = this.state;
 
-    const {appData} = this.props.productAppModel;
-    const {pageIndex, total, pageSize, rows} = appData;
+    const {blockData} = this.props.findModel;
+    const {pageIndex, total, pageSize, rows} = blockData;
 
-    console.log("appData.rows", appData.rows, this.props.productAppModel);
+    console.log("blockData.rows", blockData.rows);
+    console.log(blockData.rows);
 
     return (
       <div>
@@ -192,12 +209,13 @@ class ProductApp extends React.Component {
             <div className={styles.total}>
               存证数量 『 664344 』
             </div>
+
             <Search
-              placeholder="请输入存证人、存证号进行搜索"
+              placeholder="请输入存证人进行搜索"
               // enterButton="查询"
               size="large"
               style={{width: '500px'}}
-              onSearch={value => console.log(value)}
+              onSearch={this.onSearchPannel}
             />
           </div>
         </div>
@@ -212,7 +230,7 @@ class ProductApp extends React.Component {
             // rowSelection={rowSelection}
             columns={this.columns}
             size="small"
-            dataSource={appData.rows}
+            dataSource={blockData.rows}
             pagination={{
               current: pageIndex,
               total,

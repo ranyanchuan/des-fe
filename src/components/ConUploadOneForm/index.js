@@ -23,11 +23,11 @@ class ConUploadOneForm extends React.Component {
     if (defValue !== this.props.defValue) {
       this.setState({fileUrl: defValue, loading: false});
     }
-
   }
 
   // 文件上传成处理
   handleChange = (info) => {
+    debugger
     if (info.file.status === 'uploading') {
       this.setState({loading: true});
       return;
@@ -79,16 +79,17 @@ class ConUploadOneForm extends React.Component {
           {getFieldDecorator(id, {
             rules: [{required, message}],
             initialValue: fileUrl,
-
             getValueFromEvent: val => {
               const {file} = val;
               if (file.status === 'uploading') {
                 this.setState({loading: true});
               }
+
               if (file.status === 'done') {
+
                 const {response} = file;
-                const {link} = response.data;
-                this.setState({loading: false, fileUrl: link});
+                const {link} = response.data || {};
+                this.setState({loading: false, fileUrl});
                 // 服务器端
                 if (link) {
                   return link;
@@ -105,7 +106,7 @@ class ConUploadOneForm extends React.Component {
               // beforeUpload={this.beforeUpload}
               disabled={disabled}
               style={{width: '100%'}}
-              onChange={this.handleChange}
+              // onChange={this.handleChange}
               accept={accept}
             >
 

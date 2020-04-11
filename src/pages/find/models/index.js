@@ -1,16 +1,15 @@
 import * as services from '../services';
 
 export default {
-  namespace: 'productAppModel',
+  namespace: 'findModel',
 
   state: {
 
-    appData: {
+    blockData: {
       rows: [],
       pageNumber: 0,
       total: 0,
       pageSize: 20,
-
     },
   },
 
@@ -29,236 +28,235 @@ export default {
   effects: {
 
     //  分页查询
-    * getApp({payload, callback}, {call, put, select}) {
+    * getData({payload, callback}, {call, put, select}) {
       // const { data } = yield call(services.getApp, payload);
-
 
       const data = {
         rows: [
           {
-            "id": "1",
-            "cunzhengren": "韩红",
+            "id": "c391c2a2-7a70-11ea-aacc-e6acab52990c",
+            "userName": "韩红",
             "cunzhengshuliang": 2,
-            "cunzhengleixing": "租房合同",
-            "cunzhengshijian": "2020-04-07 11:55:43",
-            "qukuaigaodu": "#179236",
-            "cunzhenghaxi": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
+            "category": "租房合同",
+            "createTime": "2020-04-07 11:55:43",
+            "height": "#179236",
+            "hash": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
           },
           {
             "id": "2",
-            "cunzhengren": "韩红",
+            "userName": "韩红",
             "cunzhengshuliang": 2,
-            "cunzhengleixing": "租房合同",
-            "cunzhengshijian": "2020-04-07 11:55:43",
-            "qukuaigaodu": "#179236",
-            "cunzhenghaxi": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
+            "category": "租房合同",
+            "createTime": "2020-04-07 11:55:43",
+            "height": "#179236",
+            "hash": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
           },
           {
             "id": "3",
-            "cunzhengren": "韩红",
+            "userName": "韩红",
             "cunzhengshuliang": 2,
-            "cunzhengleixing": "租房合同",
-            "cunzhengshijian": "2020-04-07 11:55:43",
-            "qukuaigaodu": "#179236",
-            "cunzhenghaxi": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
+            "category": "租房合同",
+            "createTime": "2020-04-07 11:55:43",
+            "height": "#179236",
+            "hash": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
           },
           {
             "id": "4",
-            "cunzhengren": "韩红",
+            "userName": "韩红",
             "cunzhengshuliang": 2,
-            "cunzhengleixing": "租房合同",
-            "cunzhengshijian": "2020-04-07 11:55:43",
-            "qukuaigaodu": "#179236",
-            "cunzhenghaxi": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
+            "category": "租房合同",
+            "createTime": "2020-04-07 11:55:43",
+            "height": "#179236",
+            "hash": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
           },
           {
             "id": "5",
-            "cunzhengren": "韩红",
+            "userName": "韩红",
             "cunzhengshuliang": 2,
-            "cunzhengleixing": "租房合同",
-            "cunzhengshijian": "2020-04-07 11:55:43",
-            "qukuaigaodu": "#179236",
-            "cunzhenghaxi": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
+            "category": "租房合同",
+            "createTime": "2020-04-07 11:55:43",
+            "height": "#179236",
+            "hash": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
           },
           {
             "id": "6",
-            "cunzhengren": "韩红",
+            "userName": "韩红",
             "cunzhengshuliang": 2,
-            "cunzhengleixing": "租房合同",
-            "cunzhengshijian": "2020-04-07 11:55:43",
-            "qukuaigaodu": "#179236",
-            "cunzhenghaxi": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
+            "category": "租房合同",
+            "createTime": "2020-04-07 11:55:43",
+            "height": "#179236",
+            "hash": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
           },
           {
             "id": "7",
-            "cunzhengren": "韩红",
+            "userName": "韩红",
             "cunzhengshuliang": 2,
-            "cunzhengleixing": "租房合同",
-            "cunzhengshijian": "2020-04-07 11:55:43",
-            "qukuaigaodu": "#179236",
-            "cunzhenghaxi": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
+            "category": "租房合同",
+            "createTime": "2020-04-07 11:55:43",
+            "height": "#179236",
+            "hash": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
           },
           {
             "id": "8",
-            "cunzhengren": "韩红",
+            "userName": "韩红",
             "cunzhengshuliang": 2,
-            "cunzhengleixing": "租房合同",
-            "cunzhengshijian": "2020-04-07 11:55:43",
-            "qukuaigaodu": "#179236",
-            "cunzhenghaxi": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
+            "category": "租房合同",
+            "createTime": "2020-04-07 11:55:43",
+            "height": "#179236",
+            "hash": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
           },
           {
             "id": "9",
-            "cunzhengren": "韩红",
+            "userName": "韩红",
             "cunzhengshuliang": 2,
-            "cunzhengleixing": "租房合同",
-            "cunzhengshijian": "2020-04-07 11:55:43",
-            "qukuaigaodu": "#179236",
-            "cunzhenghaxi": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
+            "category": "租房合同",
+            "createTime": "2020-04-07 11:55:43",
+            "height": "#179236",
+            "hash": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
           },
           {
             "id": "10",
-            "cunzhengren": "韩红",
+            "userName": "韩红",
             "cunzhengshuliang": 2,
-            "cunzhengleixing": "租房合同",
-            "cunzhengshijian": "2020-04-07 11:55:43",
-            "qukuaigaodu": "#179236",
-            "cunzhenghaxi": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
+            "category": "租房合同",
+            "createTime": "2020-04-07 11:55:43",
+            "height": "#179236",
+            "hash": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
           },
           {
             "id": "11",
-            "cunzhengren": "韩红",
+            "userName": "韩红",
             "cunzhengshuliang": 2,
-            "cunzhengleixing": "租房合同",
-            "cunzhengshijian": "2020-04-07 11:55:43",
-            "qukuaigaodu": "#179236",
-            "cunzhenghaxi": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
+            "category": "租房合同",
+            "createTime": "2020-04-07 11:55:43",
+            "height": "#179236",
+            "hash": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
           },
           {
             "id": "12",
-            "cunzhengren": "韩红",
+            "userName": "韩红",
             "cunzhengshuliang": 2,
-            "cunzhengleixing": "租房合同",
-            "cunzhengshijian": "2020-04-07 11:55:43",
-            "qukuaigaodu": "#179236",
-            "cunzhenghaxi": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
+            "category": "租房合同",
+            "createTime": "2020-04-07 11:55:43",
+            "height": "#179236",
+            "hash": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
           },
           {
             "id": "13",
-            "cunzhengren": "韩红",
+            "userName": "韩红",
             "cunzhengshuliang": 2,
-            "cunzhengleixing": "租房合同",
-            "cunzhengshijian": "2020-04-07 11:55:43",
-            "qukuaigaodu": "#179236",
-            "cunzhenghaxi": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
+            "category": "租房合同",
+            "createTime": "2020-04-07 11:55:43",
+            "height": "#179236",
+            "hash": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
           },
           {
             "id": "14",
-            "cunzhengren": "韩红",
+            "userName": "韩红",
             "cunzhengshuliang": 2,
-            "cunzhengleixing": "租房合同",
-            "cunzhengshijian": "2020-04-07 11:55:43",
-            "qukuaigaodu": "#179236",
-            "cunzhenghaxi": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
+            "category": "租房合同",
+            "createTime": "2020-04-07 11:55:43",
+            "height": "#179236",
+            "hash": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
           },
           {
             "id": "15",
-            "cunzhengren": "韩红",
+            "userName": "韩红",
             "cunzhengshuliang": 2,
-            "cunzhengleixing": "租房合同",
-            "cunzhengshijian": "2020-04-07 11:55:43",
-            "qukuaigaodu": "#179236",
-            "cunzhenghaxi": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
+            "category": "租房合同",
+            "createTime": "2020-04-07 11:55:43",
+            "height": "#179236",
+            "hash": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
           },
           {
             "id": "16",
-            "cunzhengren": "韩红",
+            "userName": "韩红",
             "cunzhengshuliang": 2,
-            "cunzhengleixing": "租房合同",
-            "cunzhengshijian": "2020-04-07 11:55:43",
-            "qukuaigaodu": "#179236",
-            "cunzhenghaxi": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
+            "category": "租房合同",
+            "createTime": "2020-04-07 11:55:43",
+            "height": "#179236",
+            "hash": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
           },
           {
             "id": "17",
-            "cunzhengren": "韩红",
+            "userName": "韩红",
             "cunzhengshuliang": 2,
-            "cunzhengleixing": "租房合同",
-            "cunzhengshijian": "2020-04-07 11:55:43",
-            "qukuaigaodu": "#179236",
-            "cunzhenghaxi": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
+            "category": "租房合同",
+            "createTime": "2020-04-07 11:55:43",
+            "height": "#179236",
+            "hash": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
           },
           {
             "id": "18",
-            "cunzhengren": "韩红",
+            "userName": "韩红",
             "cunzhengshuliang": 2,
-            "cunzhengleixing": "租房合同",
-            "cunzhengshijian": "2020-04-07 11:55:43",
-            "qukuaigaodu": "#179236",
-            "cunzhenghaxi": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
+            "category": "租房合同",
+            "createTime": "2020-04-07 11:55:43",
+            "height": "#179236",
+            "hash": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
           },
           {
             "id": "19",
-            "cunzhengren": "韩红",
+            "userName": "韩红",
             "cunzhengshuliang": 2,
-            "cunzhengleixing": "租房合同",
-            "cunzhengshijian": "2020-04-07 11:55:43",
-            "qukuaigaodu": "#179236",
-            "cunzhenghaxi": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
+            "category": "租房合同",
+            "createTime": "2020-04-07 11:55:43",
+            "height": "#179236",
+            "hash": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
           },
           {
             "id": "20",
-            "cunzhengren": "韩红",
+            "userName": "韩红",
             "cunzhengshuliang": 2,
-            "cunzhengleixing": "租房合同",
-            "cunzhengshijian": "2020-04-07 11:55:43",
-            "qukuaigaodu": "#179236",
-            "cunzhenghaxi": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
+            "category": "租房合同",
+            "createTime": "2020-04-07 11:55:43",
+            "height": "#179236",
+            "hash": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
           },
           {
             "id": "21",
-            "cunzhengren": "韩红",
+            "userName": "韩红",
             "cunzhengshuliang": 2,
-            "cunzhengleixing": "租房合同",
-            "cunzhengshijian": "2020-04-07 11:55:43",
-            "qukuaigaodu": "#179236",
-            "cunzhenghaxi": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
+            "category": "租房合同",
+            "createTime": "2020-04-07 11:55:43",
+            "height": "#179236",
+            "hash": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
           },
           {
             "id": "22",
-            "cunzhengren": "韩红",
+            "userName": "韩红",
             "cunzhengshuliang": 2,
-            "cunzhengleixing": "租房合同",
-            "cunzhengshijian": "2020-04-07 11:55:43",
-            "qukuaigaodu": "#179236",
-            "cunzhenghaxi": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
+            "category": "租房合同",
+            "createTime": "2020-04-07 11:55:43",
+            "height": "#179236",
+            "hash": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
           },
           {
             "id": "23",
-            "cunzhengren": "韩红",
+            "userName": "韩红",
             "cunzhengshuliang": 2,
-            "cunzhengleixing": "租房合同",
-            "cunzhengshijian": "2020-04-07 11:55:43",
-            "qukuaigaodu": "#179236",
-            "cunzhenghaxi": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
+            "category": "租房合同",
+            "createTime": "2020-04-07 11:55:43",
+            "height": "#179236",
+            "hash": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
           },
           {
             "id": "24",
-            "cunzhengren": "韩红",
+            "userName": "韩红",
             "cunzhengshuliang": 2,
-            "cunzhengleixing": "租房合同",
-            "cunzhengshijian": "2020-04-07 11:55:43",
-            "qukuaigaodu": "#179236",
-            "cunzhenghaxi": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
+            "category": "租房合同",
+            "createTime": "2020-04-07 11:55:43",
+            "height": "#179236",
+            "hash": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
           },
           {
             "id": "25",
-            "cunzhengren": "韩红",
+            "userName": "韩红",
             "cunzhengshuliang": 2,
-            "cunzhengleixing": "租房合同",
-            "cunzhengshijian": "2020-04-07 11:55:43",
-            "qukuaigaodu": "#179236",
-            "cunzhenghaxi": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
+            "category": "租房合同",
+            "createTime": "2020-04-07 11:55:43",
+            "height": "#179236",
+            "hash": "42ed34f1488d25879cd737ad69be4af0193b908ff31f6eaca290b5e02b702832"
           },
 
         ],
@@ -270,39 +268,20 @@ export default {
 
 
       if (data) {
-        yield put({type: 'updateState', res: {appData: data}});
+        yield put({type: 'updateState', res: {blockData: data}});
       }
       if (callback) {
         callback(data);
       }
     },
 
-    // 添加App
-    * addApp({payload, callback}, {call, put, select}) {
-      const data = yield call(services.addApp, payload);
+    // 添加区块
+    * addData({payload, callback}, {call, put, select}) {
+      const data = yield call(services.addBlock, payload);
       if (callback) {
         callback(data);
       }
     },
-
-
-    // 删除App
-    * delApp({payload, callback}, {call, put, select}) {
-      const data = yield call(services.delApp, payload);
-      if (callback) {
-        callback(data);
-      }
-    },
-
-
-    // 获取App信息
-    * getAppInfo({payload, callback}, {call, put, select}) {
-      const data = yield call(services.getAppInfo, payload);
-      if (callback) {
-        callback(data);
-      }
-    },
-
   },
 
 
