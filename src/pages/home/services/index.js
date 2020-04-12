@@ -16,7 +16,6 @@ export async function getBlock(payload) {
 
 // 添加区块
 export async function addBlock(payload) {
-  debugger
   return requestJson(api.addBlock, {
     method: 'POST',
     body:JSON.stringify(payload),

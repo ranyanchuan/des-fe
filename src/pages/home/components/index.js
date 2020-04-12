@@ -59,8 +59,6 @@ class ProductApp extends React.Component {
 
   //添加表格数据
   addData = (payload, callback) => {
-
-    console.log("payload",payload)
     this.props.dispatch({
       type: 'homeModel/addData',
       payload,
