@@ -29,13 +29,14 @@ class BasicLayout extends React.Component {
 
 
   componentDidMount() {
-    const { pathname } = this.props.location;
+    const {pathname} = this.props.location;
     this.setState({defaultNavKey: pathname});
     router.push(pathname);
   }
 
   // 退出
   onLogout = () => {
+    localStorage.clear();
     this.props.dispatch({
       type: 'commonModel/logout',
       callback: (data) => {
@@ -56,8 +57,12 @@ class BasicLayout extends React.Component {
 
   };
   // 隐藏弹框
-  onHideModal = (key) => {
-    this.setState({[key]: false});
+  onHideModal = () => {
+    this.setState({
+      updPassModalVis: false, // 修改密码弹框
+      loginModalVis: false, // 登录弹框
+      registerModalVis: false, // 注册弹框
+    });
   };
 
 
@@ -73,10 +78,11 @@ class BasicLayout extends React.Component {
 
     const {updPassModalVis, loginModalVis, registerModalVis, defaultNavKey} = this.state;
     const userCode = localStorage.getItem("userCode");
+
     // 用户信息
     const menu = (
       <Menu>
-        <Menu.Item key="1" onClick={this.onShowPassModal}>
+        <Menu.Item key="1" onClick={this.onShowModal.bind(this, 'updPassModalVis')}>
           <Icon type="lock"/>&nbsp;&nbsp;修改密码&nbsp;&nbsp;&nbsp;&nbsp;
         </Menu.Item>
         <Menu.Item key="3" onClick={this.onLogout}>
@@ -84,6 +90,9 @@ class BasicLayout extends React.Component {
         </Menu.Item>
       </Menu>
     );
+
+
+    console.log("userCodeuserCode", userCode)
 
 
     return (
@@ -143,9 +152,9 @@ class BasicLayout extends React.Component {
                 {/*未登录态*/}
                 {!userCode &&
                 <div>
-                  <span className={styles.login} onClick={this.onShowModal.bind(this, 'login')}>登录</span>
+                  <span className={styles.rightMenu} onClick={this.onShowModal.bind(this, 'loginModalVis')}>登录</span>
                   <Divider type="vertical"/>
-                  <span className={styles.login} onClick={this.onShowModal.bind(this, 'register')}>注册</span>
+                  <span className={styles.rightMenu} onClick={this.onShowModal.bind(this, 'registerModalVis')}>注册</span>
                 </div>
                 }
               </div>
@@ -169,18 +178,17 @@ class BasicLayout extends React.Component {
           {/*onClose={this.onHideModal}*/}
           {/*/>*/}
 
-          {/*/!*登录弹框*!/*/}
-          {/*<LoginModal*/}
-          {/*visible={loginModalVis}*/}
-          {/*onClose={this.onHideModal}*/}
-          {/*/>*/}
+          {/*登录弹框*/}
+          <LoginModal
+            visible={loginModalVis}
+            onCancel={this.onHideModal}
+          />
 
-          {/*/!*注册弹框*!/*/}
-          {/*<RegisterModal*/}
-          {/*visible={registerModalVis}*/}
-          {/*onClose={this.onHideModal}*/}
-          {/*/>*/}
-
+          {/*注册弹框*/}
+          <RegisterModal
+            visible={registerModalVis}
+            onClose={this.onHideModal}
+          />
 
         </div>
       </ConfigProvider>

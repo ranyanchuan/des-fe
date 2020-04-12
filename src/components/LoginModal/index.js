@@ -1,6 +1,6 @@
 /* eslint-disable import/first */
 import React from 'react';
-import {Form, Icon, Input, Button, message, Row, Col, Spin} from 'antd';
+import {Form, Icon, Input, Button, message, Row, Col, Spin, Modal} from 'antd';
 
 import {connect} from 'dva';
 import {checkError} from 'utils';
@@ -20,26 +20,31 @@ class Index extends React.Component {
     loading: false,
   };
 
+
+  hideModal = () => {
+    this.setState({loading: false});
+    this.props.onCancel();
+  }
+
   onClickLogin = () => {
     const _this = this;
     this.props.form.validateFields((err, values) => {
       if (!err) {
         this.setState({loading: true});
         this.props.dispatch({
-          type: 'commonModel/addLogin',
+          type: 'commonModel/login',
           payload: values,
           callback: (value) => {
             const {info, data} = value;
-            let temp = {loading: false};
             if (checkError(value)) {
               // todo token 信息
+
               const {userCode, username} = data;
               sessionStorage.setItem('userCode', userCode);
               sessionStorage.setItem('loginName', username);
               _this.props.onCancel();
-
             }
-
+            this.setState({loading: false});
           },
         });
 
@@ -50,13 +55,25 @@ class Index extends React.Component {
 
   render() {
 
+    const {visible} = this.props;
     const {getFieldDecorator} = this.props.form;
     const {loading} = this.state;
 
     return (
 
-      <div className={styles.login}>
-        <Spin spinning={loading}>
+      <Modal
+        title="用户登录"
+        visible={visible}
+        onOk={this.handleSubmit}
+        onCancel={this.hideModal}
+        maskClosable={false}
+        okText="确认"
+        cancelText="取消"
+        // bodyStyle={{ paddingBottom: 0 }}
+        width="400px"
+        footer={null}
+      >
+        <div className={styles.login}>
           <Form onSubmit={this.handleSubmit} className="login-form">
             <Form.Item>
               {getFieldDecorator('staffCode', {
@@ -67,9 +84,7 @@ class Index extends React.Component {
                 <Input
                   size="large"
                   prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>}
-                  placeholder="用户账号/手机号"
-                  onBlur={this.onBlurUser}
-
+                  placeholder="邮箱/手机号"
                 />,
               )}
             </Form.Item>
@@ -87,13 +102,12 @@ class Index extends React.Component {
             </Form.Item>
 
             <Form.Item>
-              <Button type="primary" htmlType="submit" size="large" onClick={this.onClickLogin}>登录</Button>
+              <Button type="primary" htmlType="submit" size="large" loading={loading}
+                      onClick={this.onClickLogin}>登录</Button>
             </Form.Item>
           </Form>
-        </Spin>
-
-
-      </div>
+        </div>
+      </Modal>
 
 
     );

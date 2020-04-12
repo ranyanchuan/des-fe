@@ -1,8 +1,11 @@
 /* eslint-disable import/first */
 import React from 'react';
-import {Form, Icon, Input, Button, Spin, Checkbox, message, Radio} from 'antd';
+import {Form, Icon, Input, Button, Spin, Checkbox, message, Radio, Modal, Row, Col} from 'antd';
 import {connect} from 'dva';
 import {checkError} from 'utils';
+import ConPassword from 'components/ConPassword';
+import ConAutoEmail from 'components/ConAutoEmail';
+
 import styles from './index.less';
 
 @Form.create()
@@ -14,7 +17,7 @@ import styles from './index.less';
 class Index extends React.Component {
 
   state = {
-    spinning: false,
+    loading: false,
   };
 
 
@@ -62,65 +65,77 @@ class Index extends React.Component {
 
   render() {
 
-    const {codeNum, form, showRegister} = this.props;
-    const {getFieldDecorator} = form;
-    const {spinning, agreeStatus, isCountdown, onShowAgree} = this.state;
-
+    const {visible, form, showRegister} = this.props;
+    const {loading} = this.state;
 
     return (
 
-      <div className={styles.register}>
+      <Modal
+        title="用户注册"
+        visible={visible}
+        onOk={this.handleSubmit}
+        onCancel={this.hideModal}
+        maskClosable={false}
+        okText="确认"
+        cancelText="取消"
+        // bodyStyle={{ paddingBottom: 0 }}
+        width="400px"
+        footer={null}
+      >
 
-        <Spin spinning={spinning}>
+        <div className={styles.register}>
+          <Spin spinning={loading}>
+            <Form onSubmit={this.handleSubmit}>
+              <Row>
 
-          {showRegister &&
-          <Form className="login-form">
-            {/*验证手机*/}
-            <Form.Item>
-              {getFieldDecorator('staffCode', {
-                // trigger: 'onBlur',
-                rules: [{
-                  required: true,
-                  pattern: /^1[3|4|5|7|8][0-9]\d{8}$/,
-                  message: '请输入正确的手机号',
-                }],
+                <Col span={24}>
+                  <ConAutoEmail
+                    form={form}
+                    id="email"
+                    label="邮箱"
+                    placeholder="请输入登录邮箱"
+                    required={true}
+                  />
+                </Col>
 
-              })(
-                <Input
-                  size="large"
-                  prefix={<Icon type="mobile" style={{color: 'rgba(0,0,0,.25)'}}/>}
-                  placeholder="手机号"
-                />,
-              )}
-            </Form.Item>
+                <Col span={24}>
+                  <ConPassword
+                    form={form}
+                    id="password"
+                    label="设置密码"
+                    placeholder="请输入设置密码"
+                    message="请输入设置密码"
+                    required={true}
+                    validator={this.handleCheckPwd}
+                    validateFirst={true}
+                  />
+                </Col>
 
-            <Form.Item>
-              {getFieldDecorator('password', {
-                rules: [
-                  {required: true, message: '密码'},
-                  {
-                    min: 6,
-                    message: '密码不能少于6个字符',
-                  },
-                ],
-              })(
-                <Input.Password size="large"
-                                type="password"
-                                placeholder="登录密码"/>,
-              )}
-            </Form.Item>
-            <Form.Item>
-              <Button
-                type='primary'
-                size="large"
-                onClick={this.onRegister}>注册</Button>
-            </Form.Item>
-          </Form>
-          }
+                <Col span={24}>
+                  <ConPassword
+                    form={form}
+                    id="okPass"
+                    label="确认密码"
+                    placeholder="请输入确认密码"
+                    message="请输入确认密码"
+                    required={true}
+                    validator={this.handleCfmPwd}
+                    validateFirst={true}
+                  />
+                </Col>
 
-        </Spin>
+                <Form.Item>
+                  <Button
+                    type='primary'
+                    size="large"
+                    onClick={this.onRegister}>注册</Button>
+                </Form.Item>
+              </Row>
+            </Form>
+          </Spin>
 
-      </div>
+        </div>
+      </Modal>
 
     );
   }

@@ -11,7 +11,7 @@ export default {
       path: '/',
       component: '../layouts/index',
       routes: [
-        // {path: '/', redirect: '/home'},
+        {path: '/', redirect: '/find'},
         {path: '/find', component: './find/components/'},
         {path: '/home', component: './home/components/'},
         {path: '/404', component: './404'},

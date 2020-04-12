@@ -2,10 +2,10 @@ import {request} from 'utils/request';
 import {formData} from 'utils/index';
 
 const api = {
-  addUser: '/user/add', // 添加用户
-  updUser: '/user/upd', // 修改密码
-  logout: '/user/logout', // 用户退出
-  login: '/user/login', // 用户登录
+  addUser: '/api/user/add', // 添加用户
+  updUser: '/api/user/upd', // 修改密码
+  logout: '/api/user/logout', // 用户退出
+  login: '/api/user/login', // 用户登录
 };
 
 // 添加用户
