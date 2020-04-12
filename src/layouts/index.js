@@ -36,7 +36,10 @@ class BasicLayout extends React.Component {
 
   // 退出
   onLogout = () => {
+
     localStorage.clear();
+    router.push('/find');
+
     this.props.dispatch({
       type: 'commonModel/logout',
       callback: (data) => {
@@ -49,6 +52,52 @@ class BasicLayout extends React.Component {
       },
     });
   };
+
+
+  onLogin = (values, callback) => {
+
+    this.props.dispatch({
+      type: 'commonModel/login',
+      payload: values,
+      callback: (param) => {
+        const {info, data} = param;
+        let status = false;
+        if (param) {
+          const {userCode, username} = data;
+          sessionStorage.setItem('userCode', userCode);
+          sessionStorage.setItem('loginName', username);
+          status = true;
+        }
+
+        if (callback) {
+          callback(status);
+        }
+      },
+    });
+
+  };
+
+
+  addUser = (value, callback) => {
+
+
+    this.props.dispatch({
+      type: 'commonModel/addUser',
+      payload: values,
+      callback: (param) => {
+
+        let temp = false;
+        if (param) {
+          temp = true;
+          this.onLogin(value); // 用户登录
+        }
+        this.setState(temp);
+        callback(temp)
+      },
+    });
+
+
+  }
 
 
   // 显示弹框
@@ -182,12 +231,14 @@ class BasicLayout extends React.Component {
           <LoginModal
             visible={loginModalVis}
             onCancel={this.onHideModal}
+            onSave={this.onLogin}
           />
 
           {/*注册弹框*/}
           <RegisterModal
             visible={registerModalVis}
-            onClose={this.onHideModal}
+            onCancel={this.onHideModal}
+            onSave={this.addUser}
           />
 
         </div>

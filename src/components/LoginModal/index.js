@@ -26,31 +26,7 @@ class Index extends React.Component {
     this.props.onCancel();
   }
 
-  onClickLogin = () => {
-    const _this = this;
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        this.setState({loading: true});
-        this.props.dispatch({
-          type: 'commonModel/login',
-          payload: values,
-          callback: (value) => {
-            const {info, data} = value;
-            if (checkError(value)) {
-              // todo token 信息
 
-              const {userCode, username} = data;
-              sessionStorage.setItem('userCode', userCode);
-              sessionStorage.setItem('loginName', username);
-              _this.props.onCancel();
-            }
-            this.setState({loading: false});
-          },
-        });
-
-      }
-    });
-  };
 
 
   render() {

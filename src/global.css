@@ -21,9 +21,9 @@ body {
   margin-right: 8px;
 }
 
-.ant-tabs-bar {
-  margin-bottom: 0px;
-}
+/*.ant-tabs-bar {*/
+  /*margin-bottom: 0px;*/
+/*}*/
 
 .ant-advanced-search-form {
   padding: 8px;
@@ -49,127 +49,6 @@ body {
   /*margin-top: -16px;*/
 }
 
-/*卡片无查询*/
-.card-btn {
-  margin-top: 70px;
-}
-
-.ant-carousel .slick-slide {
-  text-align: center;
-  height: 320px;
-  line-height: 320px;
-  background: #364d79;
-  overflow: hidden;
-}
-
-.ant-carousel .slick-slide h3 {
-  color: #fff;
-}
-
-.clickRowStyl {
-  background-color: #b9e0f3 !important;
-}
-
-.conUploadFileModal .ant-modal-body {
-  padding: 0px !important;
-}
-
-.child-table {
-  border: 1px solid #e5e6e9;
-  -webkit-box-shadow: 0 2px 6px hsla(0, 0%, 78%, .4);
-  box-shadow: 0 2px 6px hsla(0, 0%, 78%, .4);
-}
-
-.card-tree {
-  border: 1px solid #e5e5e5;
-  margin-bottom: 5px;
-  padding: 0 20px;
-  -webkit-box-shadow: 4px 4px 40px rgba(0, 0, 0, .05);
-  box-shadow: 4px 4px 40px rgba(0, 0, 0, .05);
-}
-
-.ant-modal-body .ant-form {
-  margin-bottom: -24px;
-}
-
-/*左树右卡*/
-.tree-card {
-  display: flex;
-}
-
-.tree-card-action {
-  border-bottom: 1px solid #d9d9d9;
-  padding-bottom: 8px;
-  box-shadow: 0 2px 6px hsla(0, 0%, 78%, .4);
-  margin-bottom: 8px;
-}
-
-.tree-card-action button {
-  margin-left: 8px;
-}
-
-.tree-card .left-tree {
-  min-height: 500px;
-  min-width: 200px;
-  overflow-x: scroll;
-  border: 1px solid #d9d9d9;
-  padding: 8px;
-  -webkit-box-shadow: 4px 4px 40px rgba(0, 0, 0, .05);
-  box-shadow: 4px 4px 40px rgba(0, 0, 0, .05);
-}
-
-.tree-card .right-card {
-  padding: 24px;
-  background: #fbfbfb;
-  border: 1px solid #d9d9d9;
-  margin-left: 24px;
-  flex: auto;
-  min-width: 500px;
-}
-
-/*.ant-modal-body {*/
-/*padding-bottom: 0px !important;*/
-/*}*/
-
-.ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab {
-  margin-right: 0px;
-  padding: 0 16px;
-  background: #fafafa;
-  border-radius: 0;
-  border: 0;
-  border-left: 1px solid #e8e8e8;
-  border-bottom: 1px solid #e8e8e8;
-  /*box-shadow: 0 2px 8px #f0f1f2;*/
-}
-
-.ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab:last-child {
-  border-right: 1px solid #e8e8e8;
-}
-
-.ant-tabs-nav-container {
-  box-shadow: 0 2px 8px #f0f1f2;
-}
-
-.ant-row, .ant-form-item .ant-col, .ant-form-item-control-wrapper, .ant-col-sm-18 {
-  /*width: 100%;*/
-}
-
-/*表格拖拽*/
-.react-resizable {
-  position: relative;
-  background-clip: padding-box;
-}
-
-.react-resizable-handle {
-  position: absolute;
-  width: 10px;
-  height: 100%;
-  bottom: 0;
-  right: -5px;
-  cursor: col-resize;
-  z-index: 1;
-}
-
 /*搜索面板样式*/
 .search-body .ant-advanced-search-form .ant-col {
   /*background-color: #108ee9;*/
@@ -185,4 +64,14 @@ body {
 /*modal 弹框 确定*/
 .ant-spin-nested-loading {
   margin-bottom: -24px;
+}
+
+
+/*输入框框高*/
+.ant-form-item-control {
+  line-height: 35px;
+}
+
+.ant-form-item {
+  margin-bottom: 10px;
 }

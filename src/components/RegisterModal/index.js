@@ -21,51 +21,26 @@ class Index extends React.Component {
   };
 
 
-  // 登录
-  onRegister = () => {
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        this.onSave(values);
-      }
-    });
-  };
-
-
-  onSave = (payload, callback) => {
-    this.props.dispatch({
-      type: 'commonModel/addUser',
-      payload: values,
-      callback: (param) => {
-        const temp = {spinning: false};
-        if (checkError(param)) {
-          //  todo  直接登录
-          const {userCode, username, userRoleId} = param.data;
-          localStorage.setItem('userCode', userCode);
-          localStorage.setItem('loginName', username);
-          localStorage.setItem('userRoleId', userRoleId);
-          this.props.onCancel();
-
-        }
-        this.setState(temp);
-      },
-    });
-
-  };
+  hideModal = (status) => {
+    if (status) {
+      this.props.onCancel();
+    }
+    this.setState({loading: false});
+  }
 
 
   // 登录
-  onAddUser = () => {
+  handleSubmit = () => {
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.onSave(values);
+        this.onSave(values, this.hideModal);
       }
     });
   };
 
 
   render() {
-
-    const {visible, form, showRegister} = this.props;
+    const {visible, form} = this.props;
     const {loading} = this.state;
 
     return (
@@ -92,8 +67,9 @@ class Index extends React.Component {
                   <ConAutoEmail
                     form={form}
                     id="email"
-                    label="邮箱"
+                    label="登录邮箱"
                     placeholder="请输入登录邮箱"
+                    message="请输入登录邮箱"
                     required={true}
                   />
                 </Col>
@@ -128,7 +104,7 @@ class Index extends React.Component {
                   <Button
                     type='primary'
                     size="large"
-                    onClick={this.onRegister}>注册</Button>
+                    onClick={this.handleSubmit}>注册</Button>
                 </Form.Item>
               </Row>
             </Form>
