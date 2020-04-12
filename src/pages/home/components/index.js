@@ -58,17 +58,19 @@ class ProductApp extends React.Component {
   };
 
   //添加表格数据
-  addData = (payload) => {
-    this.onClickClose();
-    const {status, modalDataObj} = this.state;
+  addData = (payload, callback) => {
 
+    console.log("payload",payload)
     this.props.dispatch({
-      type: 'homeModel/addApp',
-      payload: checkEdit(status, modalDataObj, payload),
+      type: 'homeModel/addData',
+      payload,
       callback: (value) => {
+        let temp = false;
         if (checkError(value)) {
+          temp = true;
           this.getData();
         }
+        callback(temp);
       },
     });
   };

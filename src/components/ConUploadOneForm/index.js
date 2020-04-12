@@ -86,10 +86,9 @@ class ConUploadOneForm extends React.Component {
               }
 
               if (file.status === 'done') {
-
                 const {response} = file;
-                const {link} = response.data || {};
-                this.setState({loading: false, fileUrl});
+                const {link} = response || {};
+                this.setState({loading: false, fileUrl:link});
                 // 服务器端
                 if (link) {
                   return link;
@@ -98,11 +97,11 @@ class ConUploadOneForm extends React.Component {
             },
           })(
             <Upload
-              name="avatar"
+              name="fileName"
               listType={listType}
               className="avatar-uploader"
               showUploadList={false}
-              action='/admin/file/upload'
+              action='/api/file/upload'
               // beforeUpload={this.beforeUpload}
               disabled={disabled}
               style={{width: '100%'}}

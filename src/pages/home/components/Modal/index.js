@@ -3,6 +3,7 @@ import {Form, Modal, Row, Col, Spin} from 'antd';
 
 import ConInput from 'components/ConInput';
 import ConUploadOneForm from 'components/ConUploadOneForm';
+import ConUploadFile from 'components/ConUploadFile';
 
 import {footer} from 'utils';
 
@@ -20,6 +21,8 @@ class ActionModal extends React.Component {
     loading: false,
   };
 
+  fileUrl = "";
+
   //  关闭添加信息弹框
   hideModal = (status) => {
     if (status) {
@@ -27,16 +30,25 @@ class ActionModal extends React.Component {
       this.props.form.resetFields();
     }
     this.setState({loading: false});
+    this.fileUrl = "";
   };
   //  提交form信息弹框
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, fieldsValue) => {
       if (!err) {
+        this.setState({loading: true});
+        fieldsValue.fileUrl = this.fileUrl;
         this.props.onSave(fieldsValue, this.hideModal);
       }
     });
   };
+
+
+  onChange = (link, value) => {
+    this.fileUrl = link;
+  }
+
 
   render() {
     const {loading} = this.state;
@@ -74,11 +86,13 @@ class ActionModal extends React.Component {
               </Col>
 
               <Col span={24}>
-                <ConUploadOneForm
-                  formItemLayout = {{
+
+                <ConUploadFile
+                  formItemLayout={{
                     labelCol: {sm: {span: 6}},
                     wrapperCol: {sm: {span: 18}},
                   }}
+                  listType='text'
                   form={form}
                   id="fileUrl"
                   defValue={basicData.fileUrl}
@@ -86,8 +100,10 @@ class ActionModal extends React.Component {
                   label="文件"
                   title="上传文件"
                   message='请上传文件'
-                  required={true}
+                  onChange={this.onChange}
                 />
+
+
               </Col>
 
             </Row>

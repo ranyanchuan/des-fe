@@ -25,7 +25,8 @@ function checkStatus(response) {
  */
 export function request(url, options) {
   let headers = {
-    'Content-Type': 'application/x-www-form-urlencoded',
+    'Content-Type': 'application/json',
+    'Authorization': localStorage.getItem("token"),
   };
 
   const credentials = {credentials: 'include'};
@@ -57,15 +58,16 @@ export function requestRaw(url, options) {
 
 
 export function requestJson(url, options) {
-  // let headers = {
-  //   'Content-Type': 'application/json',
-  // };
-
   let headers = {
     'Content-Type': 'application/json',
+    'Authorization': localStorage.getItem("token"),
   };
 
-  return fetch(url, headers, options)
+  return fetch(url, {
+    headers: headers,
+    ...options
+
+  })
     .then(checkStatus)
     .then(parseJSON)
     .then((data) => {

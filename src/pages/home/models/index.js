@@ -30,7 +30,7 @@ export default {
 
     //  获取区块
     * getData({payload, callback}, {call, put, select}) {
-      // const { data } = yield call(services.getData, payload);
+      // const { data } = yield call(services.getBlock, payload);
 
 
       const data = {
@@ -279,7 +279,7 @@ export default {
 
     // 添加区块
     * addData({payload, callback}, {call, put, select}) {
-      const data = yield call(services.addData, payload);
+      const data = yield call(services.addBlock, payload);
       if (callback) {
         callback(data);
       }
