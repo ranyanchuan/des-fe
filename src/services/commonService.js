@@ -1,5 +1,6 @@
-import {request} from 'utils/request';
+import {request, requestJson} from 'utils/request';
 import {formData} from 'utils/index';
+import querystring from 'querystring';
 
 const api = {
   addUser: '/api/user/add', // 添加用户
@@ -32,10 +33,10 @@ export async function logout(payload) {
   });
 }
 
+
 // 用户登录
 export async function login(payload) {
-  return request(api.login, {
-    method: 'POST',
-    body: formData(payload),
+  return requestJson(api.login + "?" + querystring.stringify(payload), {
+    method: 'GET',
   });
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'dva';
 import router from 'umi/router';
-import {Layout, Menu, Divider, Icon, Dropdown, BackTop, ConfigProvider} from 'antd';
+import {Layout, Menu, Divider, Icon, Dropdown, BackTop, ConfigProvider, message} from 'antd';
 import {tree2Map} from 'utils';
 import zhCN from 'antd/es/locale/zh_CN';
 import UpdPassModel from 'components/UpdPassModel';
@@ -29,10 +29,15 @@ class BasicLayout extends React.Component {
 
 
   componentDidMount() {
+    this.getData();
+  }
+
+  getData = () => {
     const {pathname} = this.props.location;
     this.setState({defaultNavKey: pathname});
     router.push(pathname);
   }
+
 
   // 退出
   onLogout = () => {
@@ -55,18 +60,21 @@ class BasicLayout extends React.Component {
 
 
   onLogin = (values, callback) => {
-
     this.props.dispatch({
       type: 'commonModel/login',
       payload: values,
       callback: (param) => {
-        const {info, data} = param;
+        const {info, code, data} = param;
         let status = false;
-        if (param) {
-          const {userCode, username} = data;
-          sessionStorage.setItem('userCode', userCode);
-          sessionStorage.setItem('loginName', username);
+        if (code == '200') {
+          const {id, name, token} = data;
+          localStorage.setItem('userId', id);
+          localStorage.setItem('userName', name);
+          localStorage.setItem('token', token);
           status = true;
+          this.getData();
+        } else {
+          message.error(info);
         }
 
         if (callback) {
@@ -126,7 +134,8 @@ class BasicLayout extends React.Component {
   render() {
 
     const {updPassModalVis, loginModalVis, registerModalVis, defaultNavKey} = this.state;
-    const userCode = localStorage.getItem("userCode");
+    const userId = localStorage.getItem("userId");
+
 
     // 用户信息
     const menu = (
@@ -139,9 +148,6 @@ class BasicLayout extends React.Component {
         </Menu.Item>
       </Menu>
     );
-
-
-    console.log("userCodeuserCode", userCode)
 
 
     return (
@@ -178,7 +184,7 @@ class BasicLayout extends React.Component {
 
               <div className={styles.right}>
                 {/*登录态*/}
-                {userCode &&
+                {userId &&
                 <Menu
                   // theme="dark"
                   mode="horizontal"
@@ -191,7 +197,7 @@ class BasicLayout extends React.Component {
                   <Menu.Item key='user' style={{padding: 0}}>
                     <Dropdown overlay={menu} placement="bottomCenter">
                         <span>
-                          <Icon type="user"/>{localStorage.getItem('loginName')}
+                          <Icon type="user"/>{localStorage.getItem('userName')}
                         </span>
                     </Dropdown>
                   </Menu.Item>
@@ -199,7 +205,7 @@ class BasicLayout extends React.Component {
                 }
 
                 {/*未登录态*/}
-                {!userCode &&
+                {!userId &&
                 <div>
                   <span className={styles.rightMenu} onClick={this.onShowModal.bind(this, 'loginModalVis')}>登录</span>
                   <Divider type="vertical"/>

@@ -1,6 +1,5 @@
-/* eslint-disable import/first */
 import React from 'react';
-import {Form, Icon, Input, Button, message, Row, Col, Spin, Modal} from 'antd';
+import {Form, Icon, Input, Button, Modal} from 'antd';
 
 import {connect} from 'dva';
 import {checkError} from 'utils';
@@ -21,13 +20,22 @@ class Index extends React.Component {
   };
 
 
-  hideModal = () => {
+  hideModal = (status) => {
+    if (status) {
+      this.props.onCancel();
+    }
     this.setState({loading: false});
-    this.props.onCancel();
   }
 
 
-
+  onClickLogin = () => {
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        this.setState({loading: true});
+        this.props.onSave(values, this.hideModal);
+      }
+    });
+  }
 
   render() {
 
@@ -40,7 +48,7 @@ class Index extends React.Component {
       <Modal
         title="用户登录"
         visible={visible}
-        onOk={this.handleSubmit}
+        onOk={this.onClickLogin}
         onCancel={this.hideModal}
         maskClosable={false}
         okText="确认"
@@ -52,7 +60,7 @@ class Index extends React.Component {
         <div className={styles.login}>
           <Form onSubmit={this.handleSubmit} className="login-form">
             <Form.Item>
-              {getFieldDecorator('staffCode', {
+              {getFieldDecorator('email', {
                 // trigger: 'onBlur',
                 rules: [{required: true, message: '用户账号'}],
 

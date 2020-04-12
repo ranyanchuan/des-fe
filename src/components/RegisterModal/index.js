@@ -1,6 +1,5 @@
-/* eslint-disable import/first */
 import React from 'react';
-import {Form, Icon, Input, Button, Spin, Checkbox, message, Radio, Modal, Row, Col} from 'antd';
+import {Form, Button, Spin, Modal, Row, Col} from 'antd';
 import {connect} from 'dva';
 import {checkError} from 'utils';
 import ConPassword from 'components/ConPassword';
@@ -33,7 +32,7 @@ class Index extends React.Component {
   handleSubmit = () => {
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.onSave(values, this.hideModal);
+        this.props.onSave(values, this.hideModal);
       }
     });
   };

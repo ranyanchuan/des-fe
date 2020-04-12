@@ -36,7 +36,7 @@ export default {
 
     // 用户登录
     * login({payload, callback}, {call, put, select}) {
-      const {data} = yield call(commonService.login, payload);
+      const data= yield call(commonService.login, payload);
       if (callback) {
         callback(data);
       }
