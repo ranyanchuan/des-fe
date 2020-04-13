@@ -10,7 +10,7 @@ class LayoutSystem extends React.Component {
       <Result
         status="403"
         title="403"
-        subTitle="抱歉, 您没有权限访问改页面,请你先登录"
+        subTitle="抱歉, 您没有权限访问该页面,请你先登录"
         // extra={<Button type="primary">&nbsp;&nbsp;返回&nbsp;&nbsp;</Button>}
       />
     );
