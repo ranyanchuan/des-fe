@@ -32,7 +32,6 @@ export default {
     * getData({payload, callback}, {call, put, select}) {
       // const { data } = yield call(services.getBlock, payload);
 
-
       const data = {
         rows: [
           {

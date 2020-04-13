@@ -1,14 +1,14 @@
-import {request} from 'utils/request';
-import {formData} from 'utils/index';
+import {requestJson} from 'utils/request';
 
 const api = {
-  getBlock: '/admin/block/get', // 查询区块
+  getBlock: '/api/block/select', // 查询区块
 };
 
 // 查询 区块
 export async function getBlock(payload) {
-  return request(api.getBlock, {
+  return requestJson(api.getBlock, {
     method: 'POST',
-    body: formData(payload),
+    body: JSON.stringify(payload),
+
   });
 }

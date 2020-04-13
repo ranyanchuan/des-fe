@@ -1,35 +1,36 @@
-import {request, requestJson} from 'utils/request';
-import {formData} from 'utils/index';
+import {requestJson} from 'utils/request';
 import querystring from 'querystring';
 
 const api = {
-  addUser: '/api/user/add', // 添加用户
-  updUser: '/api/user/upd', // 修改密码
+  addUser: '/api/user/insert', // 添加用户
+  updUser: '/api/user/update', // 修改密码
   logout: '/api/user/logout', // 用户退出
   login: '/api/user/login', // 用户登录
 };
 
 // 添加用户
 export async function addUser(payload) {
-  return request(api.addUser, {
+  return requestJson(api.addUser, {
     method: 'POST',
-    body: formData(payload),
+    body:JSON.stringify(payload),
+
   });
 }
 
 // 修改密码
 export async function updUser(payload) {
-  return request(api.updUser, {
+  return requestJson(api.updUser, {
     method: 'POST',
-    body: formData(payload),
+    body:JSON.stringify(payload),
+
   });
 }
 
 // 用户退出
 export async function logout(payload) {
-  return request(api.logout, {
+  return requestJson(api.logout, {
     method: 'POST',
-    body: formData(payload),
+    body:JSON.stringify(payload),
   });
 }
 
