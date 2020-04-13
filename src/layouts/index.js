@@ -41,24 +41,24 @@ class BasicLayout extends React.Component {
 
   // 退出
   onLogout = () => {
-
     localStorage.clear();
     router.push('/find');
+    // todo 走后端
+    // this.props.dispatch({
+    //   type: 'commonModel/logout',
+    //   callback: (data) => {
+    //     const {code, info} = data;
+    //     if (code == 200) {
+    //       this.setState({isLogin: true});
+    //       localStorage.clear();
+    //       router.push('/find');
+    //     }
+    //   },
+    // });
 
-    this.props.dispatch({
-      type: 'commonModel/logout',
-      callback: (data) => {
-        const {code, info} = data;
-        if (code == 200) {
-          this.setState({isLogin: true});
-          localStorage.clear();
-          router.push('/find');
-        }
-      },
-    });
   };
 
-
+  // 登录
   onLogin = (values, callback) => {
     this.props.dispatch({
       type: 'commonModel/login',
@@ -86,9 +86,8 @@ class BasicLayout extends React.Component {
   };
 
 
+  // 注册用户
   addUser = (value, callback) => {
-
-
     this.props.dispatch({
       type: 'commonModel/addUser',
       payload: values,
@@ -103,9 +102,25 @@ class BasicLayout extends React.Component {
         callback(temp)
       },
     });
-
-
   }
+
+  // 更新密码
+  updUserPass = (payload, callback) => {
+    this.setState({loading: true});
+    this.props.dispatch({
+      type: 'commonModel/updUser',
+      payload,
+      callback: (param) => {
+        let temp = false;
+        if (param) {
+          temp = true;
+          this.onLogin(value); // 用户登录
+        }
+        this.setState({loading: false});
+        callback(temp);
+      },
+    });
+  };
 
 
   // 显示弹框
@@ -227,11 +242,12 @@ class BasicLayout extends React.Component {
           </Layout>
 
 
-          {/*/!*修改密码*!/*/}
-          {/*<UpdPassModel*/}
-          {/*visible={updPassModalVis}*/}
-          {/*onClose={this.onHideModal}*/}
-          {/*/>*/}
+          {/*修改密码*/}
+          <UpdPassModel
+            visible={updPassModalVis}
+            onClose={this.onHideModal}
+            onSave={this.updUserPass}
+          />
 
           {/*登录弹框*/}
           <LoginModal

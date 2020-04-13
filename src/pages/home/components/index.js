@@ -4,12 +4,14 @@ import {Button, Modal, Table, Divider, Spin} from 'antd';
 import {checkError, checkEdit, getPageParam} from 'utils';
 import ActionModal from './Modal';
 import moment from 'moment';
+import router from "umi/router";
 
 import Search from './Search';
 
 const ruleDate = 'YYYY-MM-DD HH:mm:ss';
 const confirm = Modal.confirm;
 import styles from './index.less';
+
 
 
 @connect((state) => ({
@@ -26,7 +28,14 @@ class ProductApp extends React.Component {
   };
 
   componentDidMount() {
-    this.getData();
+
+    const userId = localStorage.getItem("userId");
+    if (userId) {
+      this.getData();
+    } else {
+      router.push('/403');
+    }
+
   }
 
   // 获取数据

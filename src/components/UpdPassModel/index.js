@@ -2,7 +2,6 @@ import React from 'react';
 import { Form, Modal, Row, Col, Spin } from 'antd';
 import ConPassword from 'components/ConPassword';
 import { connect } from 'dva';
-import router from 'umi/router';
 import { checkError } from 'utils';
 
 @Form.create()
@@ -17,10 +16,13 @@ class ResetPassModal extends React.Component {
     loading:false
   }
   //  关闭添加信息弹框
-  hideModal = () => {
-    this.props.onClose();
-    this.props.form.resetFields();
-  };
+  hideModal = (status) => {
+    if (status) {
+      this.props.onCancel();
+      this.props.form.resetFields();
+    }
+    this.setState({loading: false});
+  }
 
   //  提交form信息弹框
   handleSubmit = (e) => {
@@ -28,27 +30,14 @@ class ResetPassModal extends React.Component {
     this.props.form.validateFields((err, fieldsValue) => {
       if (!err) {
         delete fieldsValue.okPass; // 去掉确认密码
-        this.updUserPass(fieldsValue);
+        this.setState({ loading:false});
+        this.props.onSave(fieldsValue,this.hideModal);
       }
     });
   };
 
 
-  updUserPass = (payload) => {
-    this.setState({ loading: true });
-    this.props.dispatch({
-      type: 'commonModel/updUser',
-      payload,
-      callback: (value) => {
-        if (checkError(value)) {
-          this.hideModal();
-          //  todo 重新登录
-          console.log('重新登录');
-        }
-        this.setState({ loading: false });
-      },
-    });
-  };
+
 
 
   //新密码一致校验

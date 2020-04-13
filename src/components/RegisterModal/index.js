@@ -23,6 +23,7 @@ class Index extends React.Component {
   hideModal = (status) => {
     if (status) {
       this.props.onCancel();
+      this.props.form.resetFields();
     }
     this.setState({loading: false});
   }
@@ -32,6 +33,7 @@ class Index extends React.Component {
   handleSubmit = () => {
     this.props.form.validateFields((err, values) => {
       if (!err) {
+        this.setState({ loading:false});
         this.props.onSave(values, this.hideModal);
       }
     });

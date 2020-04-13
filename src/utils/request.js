@@ -23,39 +23,6 @@ function checkStatus(response) {
  * @param  {object} [options] The options we want to pass to "fetch"
  * @return {object}           An object containing either "data" or "err"
  */
-export function request(url, options) {
-  let headers = {
-    'Content-Type': 'application/json',
-    'Authorization': localStorage.getItem("token"),
-  };
-
-  const credentials = {credentials: 'include'};
-  return fetch(url, options, headers, credentials)
-  // return fetch(url, options, headers)
-    .then(checkStatus)
-    .then(parseJSON)
-    .then((data) => {
-      // todo 权限管理
-      if (code == 104) { // 无权限
-        message.error(info);
-        router.push('/403');
-      }
-
-      return data;
-    })
-    .catch(err => ({err}));
-}
-
-export function requestRaw(url, options) {
-  return fetch(url, options)
-    .then(checkStatus)
-    .then(parseJSON)
-    .then((data) => {
-      return data;
-    })
-    .catch(err => ({err}));
-}
-
 
 export function requestJson(url, options) {
   let headers = {
@@ -71,6 +38,11 @@ export function requestJson(url, options) {
     .then(checkStatus)
     .then(parseJSON)
     .then((data) => {
+      // todo 权限管理
+      if (code == 104) { // 无权限
+        message.error(info);
+        router.push('/403');
+      }
       return data;
     })
     .catch(err => ({err}));
