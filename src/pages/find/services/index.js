@@ -8,7 +8,6 @@ const api = {
 export async function getBlock(payload) {
   return requestJson(api.getBlock, {
     method: 'POST',
-    body: JSON.stringify(payload),
-
+    payload
   });
 }
