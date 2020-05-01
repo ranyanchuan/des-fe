@@ -111,11 +111,12 @@ class BasicLayout extends React.Component {
       payload,
       callback: (param) => {
         let temp = false;
-        if (param) {
+        const {code} = param;
+        if (code == 200) {
           temp = true;
-          this.onLogin(value); // 用户登录
+          // todo 重新登录
+          // this.onLogin(payload); // 用户登录
         }
-        this.setState({loading: false});
         callback(temp);
       },
     });
@@ -244,7 +245,7 @@ class BasicLayout extends React.Component {
           {/*修改密码*/}
           <UpdPassModel
             visible={updPassModalVis}
-            onClose={this.onHideModal}
+            onCancel={this.onHideModal}
             onSave={this.updUserPass}
           />
 

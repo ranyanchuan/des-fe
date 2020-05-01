@@ -30,8 +30,9 @@ class ResetPassModal extends React.Component {
     this.props.form.validateFields((err, fieldsValue) => {
       if (!err) {
         delete fieldsValue.okPass; // 去掉确认密码
-        this.setState({ loading:false});
+        this.setState({ loading:true});
         this.props.onSave(fieldsValue,this.hideModal);
+        this.setState({ loading:false});
       }
     });
   };
