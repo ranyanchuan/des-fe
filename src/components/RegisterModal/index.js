@@ -4,6 +4,7 @@ import {connect} from 'dva';
 import {checkError} from 'utils';
 import ConPassword from 'components/ConPassword';
 import ConAutoEmail from 'components/ConAutoEmail';
+import ConInput from 'components/ConInput';
 
 import styles from './index.less';
 
@@ -64,6 +65,15 @@ class Index extends React.Component {
             <Form onSubmit={this.handleSubmit}>
               <Row>
 
+                  <ConInput
+                    form={form}
+                    id="name"
+                    label="用户名"
+                    placeholder="请输入用户名"
+                    message="请输入用户名"
+                    required={true}
+                  />
+
                 <Col span={24}>
                   <ConAutoEmail
                     form={form}
@@ -75,7 +85,7 @@ class Index extends React.Component {
                   />
                 </Col>
 
-                <Col span={24}>
+                {/*<Col span={24}>*/}
                   <ConPassword
                     form={form}
                     id="password"
@@ -86,9 +96,9 @@ class Index extends React.Component {
                     validator={this.handleCheckPwd}
                     validateFirst={true}
                   />
-                </Col>
+                {/*</Col>*/}
 
-                <Col span={24}>
+                {/*<Col span={24}>*/}
                   <ConPassword
                     form={form}
                     id="okPass"
@@ -99,7 +109,7 @@ class Index extends React.Component {
                     validator={this.handleCfmPwd}
                     validateFirst={true}
                   />
-                </Col>
+                {/*</Col>*/}
 
                 <Form.Item>
                   <Button

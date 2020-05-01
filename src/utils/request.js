@@ -1,6 +1,7 @@
-import {message} from 'antd';
+import { message } from 'antd';
 import fetch from 'dva/fetch';
 import router from 'umi/router';
+import querystring from 'querystring';
 
 function parseJSON(response) {
   return response.json();
@@ -27,17 +28,24 @@ function checkStatus(response) {
 export function requestJson(url, options) {
   let headers = {
     'Content-Type': 'application/json',
-    'Authorization': localStorage.getItem("token"),
+    'Authorization': localStorage.getItem('token'),
   };
+  let newUrl = url;
+  const { payload, method } = options;
+  if (method.toUpperCase() == 'GET' && payload) { // get 请求
+    newUrl += '?' + querystring.stringify(payload);
+  } else {
+    options.body = JSON.stringify(payload); // post 请求
+  }
 
-  return fetch(url, {
+  return fetch(newUrl, {
     headers: headers,
-    ...options
-
+    ...options,
   })
     .then(checkStatus)
     .then(parseJSON)
     .then((data) => {
+      const { code, info } = data;
       // todo 权限管理
       if (code == 104) { // 无权限
         message.error(info);
@@ -45,7 +53,7 @@ export function requestJson(url, options) {
       }
       return data;
     })
-    .catch(err => ({err}));
+    .catch(err => ({ err }));
 }
 
 

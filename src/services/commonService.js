@@ -12,7 +12,7 @@ const api = {
 export async function addUser(payload) {
   return requestJson(api.addUser, {
     method: 'POST',
-    body:JSON.stringify(payload),
+    payload
 
   });
 }
@@ -21,7 +21,7 @@ export async function addUser(payload) {
 export async function updUser(payload) {
   return requestJson(api.updUser, {
     method: 'POST',
-    body:JSON.stringify(payload),
+    payload
 
   });
 }
@@ -30,14 +30,15 @@ export async function updUser(payload) {
 export async function logout(payload) {
   return requestJson(api.logout, {
     method: 'POST',
-    body:JSON.stringify(payload),
+    payload
   });
 }
 
 
 // 用户登录
 export async function login(payload) {
-  return requestJson(api.login + "?" + querystring.stringify(payload), {
+  return requestJson(api.login, {
     method: 'GET',
+    payload
   });
 }

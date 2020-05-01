@@ -87,18 +87,17 @@ class BasicLayout extends React.Component {
 
 
   // 注册用户
-  addUser = (value, callback) => {
+  addUser = (payload, callback) => {
     this.props.dispatch({
       type: 'commonModel/addUser',
-      payload: values,
+      payload,
       callback: (param) => {
-
+        const {code} = param;
         let temp = false;
-        if (param) {
+        if (code == 200) {
           temp = true;
-          this.onLogin(value); // 用户登录
+          this.onLogin(payload); // 用户登录
         }
-        this.setState(temp);
         callback(temp)
       },
     });

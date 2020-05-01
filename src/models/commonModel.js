@@ -20,7 +20,8 @@ export default {
 
     // 添加用户
     * addUser({payload, callback}, {call, put, select}) {
-      const {data} = yield call(commonService.addUser, payload);
+      const data = yield call(commonService.addUser, payload);
+      debugger
       if (callback) {
         callback(data);
       }
@@ -28,7 +29,7 @@ export default {
 
     // 修改密码
     * updUser({payload, callback}, {call, put, select}) {
-      const {data} = yield call(commonService.updUser, payload);
+      const data = yield call(commonService.updUser, payload);
       if (callback) {
         callback(data);
       }
@@ -43,7 +44,7 @@ export default {
     },
     // 用户退出
     * logout({payload, callback}, {call, put, select}) {
-      const {data} = yield call(commonService.logout, payload);
+      const data = yield call(commonService.logout, payload);
       if (callback) {
         callback(data);
       }
