@@ -92,7 +92,6 @@ class ProductApp extends React.Component {
   };
 
 
-
   columns = [
     {
       title: '序号',
@@ -150,17 +149,17 @@ class ProductApp extends React.Component {
 
 
   render() {
-    const {status, visible, loading, modalDataObj} = this.state;
+    const {status, visible, loading} = this.state;
 
     const {appData} = this.props.homeModel;
-    const {pageIndex, total, pageSize, rows} = appData;
+    const {pageNumber, total, pageSize, rows} = appData;
     return (
       <div className={styles.home}>
         <Spin spinning={loading}>
 
           <Search
             onSearch={this.onSearchPannel}
-            onRef={(value) => this.childSearch = value}
+            onRef={(value) => this.child = value}
           />
 
           <ConRadioGroup
@@ -188,10 +187,14 @@ class ProductApp extends React.Component {
               size="small"
               dataSource={rows}
               pagination={{
-                current: pageIndex,
+                showSizeChanger: true,
+                defaultPageSize: pageSize,
+                pageSizeOptions: ['10', '20', '50', '100', '500'],
+                current: pageNumber + 1,
                 total,
-                pageSize,
+                pageSize: pageSize,
               }}
+
               // loading={loading}
               onChange={this.onChangePage}
             />

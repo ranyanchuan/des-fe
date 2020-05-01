@@ -78,15 +78,16 @@ class Search extends React.Component {
               />
             </Col>
 
-            <Col  xs={6} sm={6} md={6} lg={7} xl={7}>
-              <ConRangePicker
-                form={form}
-                formItemLayout={formItemLayout}
-                id="createTime"
-                label="存证时间"
-                placeholder="存证时间"
-              />
-            </Col>
+            {/*<Col  xs={6} sm={6} md={6} lg={7} xl={7}>*/}
+              {/*<ConRangePicker*/}
+                {/*form={form}*/}
+                {/*formItemLayout={formItemLayout}*/}
+                {/*id="createTime"*/}
+                {/*label="存证时间"*/}
+                {/*placeholder="存证时间"*/}
+              {/*/>*/}
+            {/*</Col>*/}
+
             <Col xs={6} sm={6} md={6} lg={3} xl={3} className="search-footer">
               <div>
                 <Button type="primary" htmlType="submit">查询</Button>
