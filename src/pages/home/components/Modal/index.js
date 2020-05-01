@@ -68,7 +68,7 @@ class ActionModal extends React.Component {
         {...footer(disabled)}
         width="400px"
       >
-        <Spin spinning={loading}>
+        <Spin spinning={loading} tip="正在挖矿...">
           <Form onSubmit={this.handleSubmit}>
             <Row>
 

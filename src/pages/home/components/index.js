@@ -28,7 +28,6 @@ class ProductApp extends React.Component {
   };
 
   componentDidMount() {
-
     const userId = localStorage.getItem("userId");
     if (userId) {
       this.getData();
@@ -39,7 +38,7 @@ class ProductApp extends React.Component {
   }
 
   // 获取数据
-  getData = (payload) => {
+  getData = (payload={}) => {
     this.setState({loading: true});
     const _this = this;
     this.props.dispatch({
@@ -88,12 +87,10 @@ class ProductApp extends React.Component {
     this.getData({...param});
   };
 
-
   // 展示弹框
   onShowModal = (status, record) => {
     this.setState({visible: true, status, modalDataObj: record});
   };
-
 
   // 修改分页
   onChangePage = (data) => {
@@ -132,24 +129,24 @@ class ProductApp extends React.Component {
     },
     {
       title: '存证人',
-      dataIndex: 'cunzhengren',
-      key: 'cunzhengren',
+      dataIndex: 'userName',
+      key: 'userName',
     },
-    {
-      title: '存证数量',
-      dataIndex: 'cunzhengshuliang',
-      key: 'cunzhengshuliang'
-    },
+    // {
+    //   title: '存证数量',
+    //   dataIndex: 'cunzhengshuliang',
+    //   key: 'cunzhengshuliang'
+    // },
     {
       title: '存证类型',
-      dataIndex: 'cunzhengleixing',
-      key: 'cunzhengleixing'
+      dataIndex: 'category',
+      key: 'category'
     },
 
     {
       title: '存证时间',
-      dataIndex: 'cunzhengshijian',
-      key: 'cunzhengshijian',
+      dataIndex: 'createTime',
+      key: 'createTime',
       render: (text) => {
         return text ? moment(text).format(ruleDate) : '';
       },
@@ -157,26 +154,21 @@ class ProductApp extends React.Component {
 
     {
       title: '区块高度',
-      dataIndex: 'qukuaigaodu',
-      key: 'qukuaigaodu',
+      dataIndex: 'height',
+      key: 'height',
     },
     {
       title: '存证哈希值',
-      dataIndex: 'cunzhenghaxi',
-      key: 'cunzhenghaxi',
+      dataIndex: 'hash',
+      key: 'hash',
     },
-
     {
-      title: '操作',
-      dataIndex: 'action',
-      key: 'action',
-      render: (text, record) => (
-        <span>
-           <a onClick={this.onShowModal.bind(this, 'edit', record)}>查看</a>
-          {/*<Divider type="vertical"/>*/}
-          {/*<a onClick={this.showDelCon.bind(this, record)}>删除</a>*/}
-       </span>
-      ),
+      title: '文件',
+      dataIndex: 'fileUrl',
+      key: 'fileUrl',
+      render: (text) => {
+        return <a target="_blank" href={`http://127.0.0.1:8080/images/${text}`}>存证下载</a>
+      },
     },
 
   ];

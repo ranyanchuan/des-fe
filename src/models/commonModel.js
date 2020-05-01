@@ -21,7 +21,6 @@ export default {
     // 添加用户
     * addUser({payload, callback}, {call, put, select}) {
       const data = yield call(commonService.addUser, payload);
-      debugger
       if (callback) {
         callback(data);
       }

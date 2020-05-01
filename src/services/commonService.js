@@ -38,7 +38,7 @@ export async function logout(payload) {
 // 用户登录
 export async function login(payload) {
   return requestJson(api.login, {
-    method: 'GET',
+    method: 'POST',
     payload
   });
 }

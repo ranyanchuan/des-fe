@@ -9,7 +9,7 @@ const api = {
 export async function getBlock(payload) {
   return requestJson(api.getBlock, {
     method: 'POST',
-    body: JSON.stringify(payload),
+    payload,
   });
 }
 
@@ -17,6 +17,6 @@ export async function getBlock(payload) {
 export async function addBlock(payload) {
   return requestJson(api.addBlock, {
     method: 'POST',
-    body:JSON.stringify(payload),
+    payload,
   });
 }

@@ -107,7 +107,7 @@ class ProductApp extends React.Component {
       dataIndex: 'fileUrl',
       key: 'fileUrl',
       render: (text) => {
-        return <a href="http://www.baidu.com">存证下载</a>
+        return <a target="_blank" href={`http://127.0.0.1:8080/images/${text}`}>存证下载</a>
       },
     },
 
