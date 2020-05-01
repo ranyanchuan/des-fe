@@ -54,7 +54,6 @@ class ActionModal extends React.Component {
     const {loading} = this.state;
     const {visible, form, status, basicData = {}} = this.props;
     const disabled = (status === 'desc') ? true : false;
-
     return (
       <Modal
         title={titleObj[status]}

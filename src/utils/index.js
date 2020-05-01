@@ -1,6 +1,5 @@
 import moment from 'moment';
-import { message } from 'antd';
-
+import {message} from 'antd';
 
 /**
  /**
@@ -96,8 +95,8 @@ export function randomNum(m, n) {
 export function checkEdit(status, obj, payload) {
 
   if (status === 'edit') {
-    const { id, ts } = obj;
-    payload = { ...payload, id, ts };
+    const {id, ts} = obj;
+    payload = {...payload, id, ts};
   }
   return payload;
 }
@@ -136,7 +135,7 @@ export function string2Moment(text, ruleDate = 'YYYY-MM-DD HH:mm') {
 export function footer(disabled) {
   let result = null;
   if (disabled) {
-    result = { footer: null };
+    result = {footer: null};
   }
   return result;
 }
@@ -149,7 +148,6 @@ export function formData(payload) {
   }
   return data;
 }
-
 
 
 export function converFileSize(limit) {
@@ -180,7 +178,7 @@ export function connectTree(source, data, pid) {
   }
 
   for (let index in source) {
-    const { id, children = [] } = source[index];
+    const {id, children = []} = source[index];
     if (pid === id) {
       source[index].children = data;
       break;
@@ -201,11 +199,11 @@ export function delMore(payload) {
   let tsArray = [];
 
   for (let item of payload) {
-    const { id, ts } = item;
+    const {id, ts} = item;
     idArray.push(id);
     tsArray.push(ts);
   }
-  return { id: idArray.toString(), ts: tsArray.toString() };
+  return {id: idArray.toString(), ts: tsArray.toString()};
 }
 
 
@@ -249,7 +247,7 @@ export function formatFormDateRange(formData, fieldArray, formatRule = 'YYYY-MM-
 
 // 请求放回错误处理
 export function checkError(value) {
-  const { code, info } = value;
+  const {code, info} = value;
   if (code == -1) { // 请求错误
     message.error(info);
     return false;
@@ -258,12 +256,12 @@ export function checkError(value) {
   return true;
 }
 
-
+// 分页参数处理
 export function getPageParam(data) {
-  const { current, pageSize } = data;
+  const {current, pageSize} = data;
   return {
-    pageIndex: current,
-    pageSize,
+    pageIndex: current - 1,
+    size: pageSize,
   };
 }
 
@@ -281,7 +279,7 @@ export function changeSelectVal(left, right) {
  数字保留有效数数字
  */
 export function numFixed(text, index = 2) {
-  return (text || text==0)   ? parseInt(text).toFixed(index) : null;
+  return (text || text == 0) ? parseInt(text).toFixed(index) : null;
 }
 
 export function deepCopy(obj) {

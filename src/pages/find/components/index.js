@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'dva';
-import {Input, Table,Spin} from 'antd';
+import {Input, Table, Spin} from 'antd';
 import {checkError, checkEdit, getPageParam} from 'utils';
 import moment from 'moment';
 
@@ -21,6 +21,7 @@ class ProductApp extends React.Component {
     visible: false,
     status: 'add',
     modalDataObj: {}, //  弹框数据
+    userName: '',
   };
 
   componentDidMount() {
@@ -45,13 +46,14 @@ class ProductApp extends React.Component {
   // 搜索面板值
   onSearchPannel = (param) => {
     this.getBlockData({userName: param});
+    this.setState({userName: param});
   };
 
   // 修改分页
   onChangePage = (data) => {
-    const searchObj = this.child.getSearchValue();
+    const {userName} = this.state;
     // 获取分页数据
-    this.getBlockData({...getPageParam(data), ...searchObj});
+    this.getBlockData({...getPageParam(data), userName});
   };
 
 
@@ -110,20 +112,6 @@ class ProductApp extends React.Component {
         return <a target="_blank" href={`http://127.0.0.1:8080/images/${text}`}>存证下载</a>
       },
     },
-
-    // {
-    //   title: '操作',
-    //   dataIndex: 'action',
-    //   key: 'action',
-    //   render: (text, record) => (
-    //     <span>
-    //        <a onClick={this.onShowModal.bind(this, 'edit', record)}>查看</a>
-    //       {/*<Divider type="vertical"/>*/}
-    //       {/*<a onClick={this.showDelCon.bind(this, record)}>删除</a>*/}
-    //    </span>
-    //   ),
-    // },
-
   ];
 
 
@@ -131,7 +119,7 @@ class ProductApp extends React.Component {
 
     const {loading} = this.state;
     const {blockData} = this.props.findModel;
-    const {pageIndex, total, pageSize} = blockData;
+    const {pageNumber, total, pageSize} = blockData;
 
     return (
       <div>
@@ -139,7 +127,7 @@ class ProductApp extends React.Component {
           <div className={styles.find}>
             <div className={styles.content}>
               <div className={styles.total}>
-                存证数量 『 664344 』
+                存证数量 『 {blockData.total} 』
               </div>
 
               <Search
@@ -163,9 +151,12 @@ class ProductApp extends React.Component {
               size="small"
               dataSource={blockData.rows}
               pagination={{
-                current: pageIndex,
+                showSizeChanger: true,
+                defaultPageSize: pageSize,
+                pageSizeOptions: ['10', '20', '50', '100', '500'],
+                current: pageNumber+1,
                 total,
-                pageSize,
+                pageSize: pageSize,
               }}
               // loading={loading}
               onChange={this.onChangePage}

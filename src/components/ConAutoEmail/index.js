@@ -1,6 +1,4 @@
-/**
- * Created by ranyanchuan on 2018/3/11.
- */
+
 import React from 'react';
 import { Form, AutoComplete, Input } from 'antd';
 

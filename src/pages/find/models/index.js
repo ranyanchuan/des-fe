@@ -7,7 +7,7 @@ export default {
 
     blockData: {
       rows: [],
-      pageNumber: 0,
+      pageNumber: 1,
       total: 0,
       pageSize: 20,
     },

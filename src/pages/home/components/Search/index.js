@@ -3,7 +3,6 @@ import React from 'react';
 import {Form, Row, Col, Input, Button, Select} from 'antd';
 import {formatFormDateRange} from 'utils';
 import ConInput from 'components/ConInput';
-import ConSelect from 'components/ConSelect';
 import ConRangePicker from 'components/ConRangePicker';
 
 import styles from './index.less';
@@ -59,8 +58,8 @@ class Search extends React.Component {
           onSubmit={this.handleSearch}
         >
 
-          <Row gutter={24}>
-            <Col span={6}>
+          <Row >
+            <Col  xs={6} sm={6} md={6} lg={7} xl={7}>
               <ConInput
                 form={form}
                 formItemLayout={formItemLayout}
@@ -69,7 +68,7 @@ class Search extends React.Component {
                 placeholder="存证哈希值"
               />
             </Col>
-            <Col span={6}>
+            <Col  xs={6} sm={6} md={6} lg={7} xl={7}>
               <ConInput
                 form={form}
                 formItemLayout={formItemLayout}
@@ -78,7 +77,8 @@ class Search extends React.Component {
                 placeholder="区块类型"
               />
             </Col>
-            <Col span={8}>
+
+            <Col  xs={6} sm={6} md={6} lg={7} xl={7}>
               <ConRangePicker
                 form={form}
                 formItemLayout={formItemLayout}
@@ -87,11 +87,11 @@ class Search extends React.Component {
                 placeholder="存证时间"
               />
             </Col>
-          </Row>
-          <Row>
-            <Col span={24} className="search-footer">
-              <Button type="primary" htmlType="submit">查询</Button>
-              <Button style={{marginLeft: 8}} onClick={this.handleReset}>清空</Button>
+            <Col xs={6} sm={6} md={6} lg={3} xl={3} className="search-footer">
+              <div>
+                <Button type="primary" htmlType="submit">查询</Button>
+                <Button style={{ marginLeft: 8 }} onClick={this.handleReset}>清空</Button>
+              </div>
             </Col>
           </Row>
         </Form>
