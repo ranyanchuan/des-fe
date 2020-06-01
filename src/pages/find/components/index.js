@@ -1,8 +1,9 @@
 import React from 'react';
 import {connect} from 'dva';
-import {Input, Table, Spin} from 'antd';
+import {Input, Table, Spin, message} from 'antd';
 import {checkError, checkEdit, getPageParam} from 'utils';
 import moment from 'moment';
+import ActionModal from "./Modal";
 
 const ruleDate = 'YYYY-MM-DD HH:mm:ss';
 import styles from './index.less';
@@ -22,6 +23,7 @@ class ProductApp extends React.Component {
     status: 'add',
     modalDataObj: {}, //  弹框数据
     userName: '',
+    record: '', // 下载url
   };
 
   componentDidMount() {
@@ -108,16 +110,44 @@ class ProductApp extends React.Component {
       title: '文件',
       dataIndex: 'fileUrl',
       key: 'fileUrl',
-      render: (text) => {
-        return <a target="_blank" href={`http://127.0.0.1:8080/images/${text}`}>存证下载</a>
+      render: (text, record) => {
+        return <a onClick={this.onClickConfirm.bind(this, record)}>存证下载</a>
       },
     },
   ];
 
 
+  // return <a target="_blank" href={`http://127.0.0.1:8080/images/${text}`}>存证下载</a>
+
+
+  onClickConfirm = (param) => {
+    this.setState({visible: true, record: param});
+  }
+
+
+  onClickClose = () => {
+    this.setState({visible: false,});
+  }
+  
+  addData = (data,callback) => {
+    const {hash} = data;
+    const {record} = this.state;
+    if (hash === record.hash) {
+      window.open(`http://127.0.0.1:8080/images/${record.fileUrl}`);
+      callback(true);
+    }else{
+      message.error("hash 值不匹配");
+      callback(false);
+    }
+  }
+
+
+
+
+
   render() {
 
-    const {loading} = this.state;
+    const {loading, visible} = this.state;
     const {blockData} = this.props.findModel;
     const {pageNumber, total, pageSize} = blockData;
 
@@ -154,7 +184,7 @@ class ProductApp extends React.Component {
                 showSizeChanger: true,
                 defaultPageSize: pageSize,
                 pageSizeOptions: ['10', '20', '50', '100', '500'],
-                current: pageNumber+1,
+                current: pageNumber + 1,
                 total,
                 pageSize: pageSize,
               }}
@@ -163,6 +193,17 @@ class ProductApp extends React.Component {
             />
           </div>
         </Spin>
+
+
+        {/*添加表单*/}
+        <ActionModal
+          visible={visible}
+          onSave={this.addData}
+          status={"add"}
+          onClose={this.onClickClose}
+          basicData={{}}
+        />
+
       </div>
     );
   }

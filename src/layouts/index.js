@@ -184,7 +184,7 @@ class BasicLayout extends React.Component {
 
                   <Menu.Item key='logo' style={{padding: 0, marginLeft: 20}}>
                     <img style={{height: 30, marginTop: -10}}
-                         src="http://img0.bdstatic.com/static/searchresult/img/logo-2X_32a8193.png"
+                         src="https://www.bistu.edu.cn/images/caiselogo.png"
                          alt=""/>
                   </Menu.Item>
 
