@@ -128,7 +128,7 @@ class ProductApp extends React.Component {
   onClickClose = () => {
     this.setState({visible: false,});
   }
-  
+
   addData = (data,callback) => {
     const {hash} = data;
     const {record} = this.state;

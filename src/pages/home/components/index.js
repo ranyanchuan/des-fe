@@ -1,8 +1,10 @@
 import React from 'react';
 import {connect} from 'dva';
-import {Table, Spin} from 'antd';
+import {Table, Spin, message} from 'antd';
 import {checkError, checkEdit, getPageParam} from 'utils';
 import ActionModal from './Modal';
+import DModal from "./DModal";
+
 import moment from 'moment';
 import router from "umi/router";
 import ConRadioGroup from "components/ConRadioGroup";
@@ -22,8 +24,10 @@ class ProductApp extends React.Component {
   state = {
     loading: false,
     visible: false,
+    dVisible: false,
     status: 'add',
     modalDataObj: {}, //  弹框数据
+    record: '', // 下载url
   };
 
   componentDidMount() {
@@ -140,16 +144,40 @@ class ProductApp extends React.Component {
       title: '文件',
       dataIndex: 'fileUrl',
       key: 'fileUrl',
-      render: (text) => {
-        return <a target="_blank" href={`http://127.0.0.1:8080/images/${text}`}>存证下载</a>
+      render: (text,record) => {
+        return <a onClick={this.onClickConfirm.bind(this, record)}>存证下载</a>
       },
     },
 
   ];
 
 
+  onClickConfirm = (param) => {
+    this.setState({dVisible: true, record: param});
+  }
+
+
+  onClickCloseDown = () => {
+    this.setState({dVisible: false,});
+  }
+
+  addDataDown = (data,callback) => {
+    const {hash} = data;
+    const {record} = this.state;
+    if (hash === record.hash) {
+      window.open(`http://127.0.0.1:8080/images/${record.fileUrl}`);
+      callback(true);
+    }else{
+      message.error("hash 值不匹配");
+      callback(false);
+    }
+  }
+
+
+
+
   render() {
-    const {status, visible, loading} = this.state;
+    const {status, visible,dVisible, loading} = this.state;
 
     const {appData} = this.props.homeModel;
     const {pageNumber, total, pageSize, rows} = appData;
@@ -173,6 +201,15 @@ class ProductApp extends React.Component {
             onSave={this.addData}
             status={status}
             onClose={this.onClickClose}
+            basicData={{}}
+          />
+
+          {/*添加表单*/}
+          <DModal
+            visible={dVisible}
+            onSave={this.addDataDown}
+            status={"add"}
+            onClose={this.onClickCloseDown}
             basicData={{}}
           />
 
